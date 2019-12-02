@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from jobs.views import ThirdPartyJobViewSet
+from jobs.views import ThirdPartyJobView
 
 urlpatterns = [
-    path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
     path('api/', include('jobs.api.urls')),
-    path('populateJobs/', ThirdPartyJobViewSet.getJobs)
+    path('populateJobs/', ThirdPartyJobView.populateJobs)
 ]
