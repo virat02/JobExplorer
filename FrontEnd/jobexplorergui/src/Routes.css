@@ -1,0 +1,14 @@
+.wbdv-body{
+    padding-top: 80px;
+    padding-bottom: 5%;
+    min-height:100vh;
+    background-color: black;
+    color: #eeeeee;
+}
+
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+}

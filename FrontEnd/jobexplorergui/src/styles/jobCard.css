@@ -1,0 +1,112 @@
+.job-card {
+    position: relative;
+    margin-top: 15px;
+    width: 300px;
+    height: 300px;
+}
+
+.job-card:hover {
+    display: inline-block;
+    background: rgba(0, 0, 0, .3);
+}
+
+img {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    left: 0;
+}
+
+.title {
+    position: absolute;
+    width: 300px;
+    left: 0;
+    top: 120px;
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    transition: top .5s ease;
+}
+
+.job-card:hover .title {
+    top: 90px;
+}
+
+.button {
+    position: absolute;
+    width: 300px;
+    left:0;
+    top: 180px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+.button a {
+    width: 200px;
+    padding: 12px 48px;
+    text-align: center;
+    color: white;
+    background-color: #555555;
+    border: solid 2px white;
+    z-index: 1;
+}
+
+.remove-button {
+    position: absolute;
+    width: 300px;
+    left:0;
+    top: 240px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+.remove-button a {
+    width: 200px;
+    padding: 12px 48px;
+    text-align: center;
+    color: white;
+    background-color: #555555;
+    border: solid 2px white;
+    z-index: 1;
+}
+
+.edit-button {
+    position: absolute;
+    display: inline;
+    width: 300px;
+    left:0;
+    top: 100px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+.edit-button a {
+    width: 200px;
+    padding: 12px 48px;
+    text-align: center;
+    color: white;
+    background-color: #555555;
+    border: solid 2px white;
+    z-index: 1;
+}
+
+.job-card:hover .button,
+.job-card:hover .remove-button,
+.job-card:hover .edit-button{
+    opacity: 1;
+}
+
+.jobs-header {
+    text-align: left;
+    margin-top: 50px;
+}
+
+.job-card-image:hover {
+    --webkit-filter: blur(4px);
+    filter: blur(4px);
+}
