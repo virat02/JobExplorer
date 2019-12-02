@@ -13,7 +13,7 @@ export default class JobService {
 
     //retrieves all jobs
     searchJobByJobName = jobName =>
-        fetch(baseURL + "/api/search/jobs?query=" + jobName)
+        fetch(baseURL + "/api/jobs" + jobName)
             .then(response => response.json());
 
     //Gets the details for a particular movie

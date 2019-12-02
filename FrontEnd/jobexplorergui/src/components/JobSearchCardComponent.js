@@ -11,11 +11,12 @@ export default class JobSearchCardComponent extends React.Component {
         return (
             <div className="col-md-4">
                 <div className="job-card">
-                    <img className="job-card-image"
+                    {/* <img className="job-card-image"
                         src={this.props.job.company_url}
-                        alt="Company Poster." />
+                        alt="Company Poster." /> */}
+                    <div>{this.props.job.title}</div>
                     <div className="button">
-                        <Link to={`/movie/${this.props.job.id}`}>
+                        <Link to={`/job/${this.props.job.id}`}>
                             Job details
                         </Link>
                     </div>

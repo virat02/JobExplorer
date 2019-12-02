@@ -59,10 +59,8 @@ export default class NavBarComponent extends Component {
                             <button className="btn btn-success wbdv-search-btn"
                                 type="button"
                                 onClick={() => {
-                                    if (this.props.searchText.length !== 0) {
-                                        history.push('/jobs');
-                                        this.props.searchJobsByKeyword(this.props.searchText);
-                                    }
+                                    history.push('/jobs');
+                                    this.props.searchJobsByKeyword(this.props.searchText);
                                 }}>
                                 <span className={"text-center wbdv-search-btn-text"}>
                                     Search
