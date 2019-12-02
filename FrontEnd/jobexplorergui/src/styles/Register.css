@@ -1,0 +1,25 @@
+.container-register {
+    padding-top: 0px;
+    height:100%;
+}
+
+.wbdv-register-container {
+    max-width: 600px !important;
+    padding-top: 4%;
+    margin: 0 auto;
+    background-color: rgba(245, 245, 245, 1);
+    opacity:0.8;
+    height: 100%;
+}
+
+.wbdv-links {
+    padding-bottom: 10px;
+}
+
+.registercard {
+    background-color: black !important;
+}
+
+.container {
+    margin-top: 0px !important;
+}
