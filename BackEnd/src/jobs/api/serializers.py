@@ -7,5 +7,6 @@ class JobSerializer(serializers.ModelSerializer):
         model = Job
         fields = (
             'job_uuid', 'type', 'created_at',
-            'location', 'title', 'description', 'how_to_apply'
+            'location', 'title', 'description', 'how_to_apply',
+            'language', 'sponsorship_available'
         )
