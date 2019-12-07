@@ -21,7 +21,7 @@ export const login = (dispatch, username, password) => {
             const token = res.data.key;
             localStorage.setItem('token', token);
             dispatch(authSuccess(token));
-            // history.push("/");
+            history.push("/");
         })
         .catch(err => {
             dispatch(authFail(err))
@@ -119,3 +119,64 @@ export const getJobDetails = (dispatch, jobId) => {
                 job: job
             }))
 };
+
+/**
+ * METHOD TO LIKE A JOB
+ */
+export const likeJob = (dispatch, jobId, username) =>
+
+    jobService.checkIfUserLikesJob(username, jobId)
+        .then(bool =>
+            !bool ?
+                jobService.likeJob(jobId, username)
+                    .then(() =>
+                        dispatch({
+                            type: constants.SET_LIKED_ALERT,
+                            message: "Liked the job!"
+                        }))
+                :
+
+                dispatch({
+                    type: constants.SET_ALREADY_LIKED_ALERT,
+                    message: "You already like the job!"
+                })
+
+        );
+
+/**
+ * METHOD TO GET JOBS LIKED
+ */
+export const getJobsLiked = (dispatch, username) => {
+    jobService.getJobsLiked(username)
+        .then(jobsLiked =>
+            dispatch({
+                type: constants.GET_JOBS_LIKED,
+                jobsLiked: jobsLiked
+            })
+        )
+};
+
+/**
+ * DISLIKE A JOB
+ */
+export const dislikeJob = (dispatch, jobId, username) => {
+    jobService.dislikeJob(jobId, username)
+        .then(() => {
+            dispatch({
+                type: constants.SET_DISLIKE_JOB_ALERT,
+                message: "Disliked job!"
+            });
+
+            return getJobsLiked(dispatch, username);
+        }
+        )
+};
+
+/**
+ * METHOD TO SET JOB LIKE PILL ACTIVE
+ */
+export const activeJobLikePill = dispatch =>
+    dispatch({
+        type: constants.ACTIVATE_JOB_LIKE_PILL,
+        setJobLikePill: true
+    });

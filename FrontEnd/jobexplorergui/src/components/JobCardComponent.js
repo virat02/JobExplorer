@@ -7,8 +7,8 @@ const JobCardComponent = ({ job }) =>
     <div className="tile">
         <a className="details-btn" href={`/job/${job.id}`}>
             <div className="tile__media">
-                <img className="tile__img"
-                    src={job.company_logo} alt="Company logo." />
+                {/* <img className="tile__img"
+                    src={job.company_logo} alt="Company logo." /> */}
             </div>
             <div className="tile__details">
                 <div className="tile__title">

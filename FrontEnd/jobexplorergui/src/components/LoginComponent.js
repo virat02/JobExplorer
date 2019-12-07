@@ -12,7 +12,6 @@ class LoginForm extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.props.doLogin(values.username, values.password);
-                this.props.history.push('/');
             }
         });
     };

@@ -40,3 +40,21 @@ export const ERROR = 'ERROR';
 export const SUCCESS = 'SUCCESS';
 export const SET = 'SET';
 export const RESET = 'RESET';
+export const SET_DISLIKE_JOB_ALERT = 'SET_DISLIKE_JOB_ALERT';
+
+/**
+ * PILLS
+ */
+export const ACTIVATE_JOB_LIKE_PILL = 'ACTIVATE_JOB_LIKE_PILL';
+
+/**
+ * Alerts
+ */
+export const SET_LIKED_ALERT = 'SET_LIKED_ALERT';
+export const SET_ALREADY_LIKED_ALERT = 'SET_ALREADY_LIKED_ALERT';
+
+/**
+ * User
+ */
+export const GET_JOBS_LIKED = 'GET_JOBS_LIKED';
+

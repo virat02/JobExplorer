@@ -5,13 +5,15 @@ import LocalStorageReducer from './LocalStorageReducer';
 import RegisterReducer from './RegisterReducer';
 import JobReducer from './JobReducer';
 import AuthReducer from './AuthReducer';
+import ActivatePillReducer from './ActivatePillReducer';
 
 const RootReducer = combineReducers({
     LoginReducer,
     LocalStorageReducer,
     RegisterReducer,
     JobReducer,
-    AuthReducer
+    AuthReducer,
+    ActivatePillReducer
 });
 
 export default RootReducer;

@@ -9,6 +9,8 @@ import FooterContainer from './containers/FooterContainer';
 import RegisterContainer from './containers/RegisterContainer';
 import HomeContainer from './containers/HomeContainer';
 import JobSearchContainer from './containers/JobSearchContainer';
+import JobDetailsContainer from "./containers/JobDetailsContainer";
+import UserProfileContainer from "./containers/UserProfileContainer";
 
 export default class Routes extends Component {
 
@@ -22,6 +24,8 @@ export default class Routes extends Component {
                     <Route exact path={"/login"} component={LoginContainer} />
                     <Route exact path={"/register"} component={RegisterContainer} />
                     <Route exact path={"/jobs"} component={JobSearchContainer} />
+                    <Route exact path={"/job/:jobId"} component={JobDetailsContainer} />
+                    <Route exact path={"/profile/:username"} component={UserProfileContainer} />
                 </div>
                 <FooterContainer />
             </div>
