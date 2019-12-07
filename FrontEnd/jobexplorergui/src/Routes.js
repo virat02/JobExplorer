@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Routes.css';
+import "antd/dist/antd.css";
 
 import { Route } from 'react-router-dom';
 import LoginContainer from './containers/LoginContainer';

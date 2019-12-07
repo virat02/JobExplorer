@@ -10,7 +10,7 @@ const stateToPropertyMapper = state => ({
 export const dispatcherToPropsMapper = dispatch => ({
     searchTextChanged: newText => actions.searchTextChanged(dispatch, newText),
     searchJobsByKeyword: jobTitle => actions.searchJobsByKeyword(dispatch, jobTitle),
-    logOut: () => actions.logOut(dispatch),
+    logOut: () => actions.logout(dispatch),
 });
 
 const NavBarContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(NavBarComponent);

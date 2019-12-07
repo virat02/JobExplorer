@@ -14,16 +14,17 @@ export default class NavBarComponent extends Component {
     }
 
     renderLogin() {
-        if (this.props.localUsername !== null) {
-            return <Link to={""} id={"logoutLink"}
+        return this.props.isAuthenticated ?
+            <Link to={""} id={"logoutLink"}
                 className={"wbdv-link nav-link"}
-                onClick={this.props.logOut}>Logout</Link>
-        } else {
-            return <Link to={`/login`} className={'wbdv-link nav-link'}>
+                onClick={this.props.logOut}>
+                Logout
+            </Link>
+            :
+            <Link to={`/login`} className={'wbdv-link nav-link'}>
                 Login
                 <span className={"sr-only"}>(current)</span>
             </Link>
-        }
     }
 
     renderRegisterProfile() {

@@ -2,15 +2,13 @@ import { connect } from 'react-redux';
 import * as actions from "../actions";
 import LoginComponent from "../components/LoginComponent";
 
-const stateToPropertyMapper = (state) => ({
-    username: state.LoginReducer.username,
-    password: state.LoginReducer.password
+const stateToPropertyMapper = state => ({
+    loading: state.AuthReducer.loading,
+    error: state.AuthReducer.error
 });
 
-const dispatcherToPropsMapper = (dispatch) => ({
-    changeUsername: username => actions.changeUsername(dispatch, username),
-    changePassword: password => actions.changePassword(dispatch, password),
-    doLogin: (username, password) => actions.doLogin(dispatch, username, password)
+const dispatcherToPropsMapper = dispatch => ({
+    doLogin: (username, password) => actions.login(dispatch, username, password)
 });
 
 const LoginContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(LoginComponent);

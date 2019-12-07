@@ -1,5 +1,4 @@
 let singleton = null;
-let jobs = {};
 let baseURL = "http://127.0.0.1:8000";
 
 export default class JobService {
@@ -8,7 +7,6 @@ export default class JobService {
         if (!singleton) {
             singleton = this
         }
-        this.jobs = jobs;
     }
 
     //retrieves all jobs
