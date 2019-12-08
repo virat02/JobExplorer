@@ -5,6 +5,7 @@ import Select from 'react-select';
 import { Checkbox, Button } from 'antd';
 
 const languageOptions = [
+    { label: 'None', value: "" },
     { label: 'Java', value: "java" },
     { label: 'Python', value: "python" },
     { label: 'JavaScript', value: "javascript" },
@@ -98,6 +99,15 @@ export default class NavBarComponent extends Component {
                     </div>
                     {
                         this.state.isAuthenticated &&
+                        <input className={"form-control wbdv-search-bar input-lg"}
+                            type="text"
+                            placeholder="Search for jobs"
+                            onChange={event => this.props.searchTextChanged(event.target.value)}
+                            aria-label="Search" />
+                    }
+
+                    {
+                        this.state.isAuthenticated &&
                         <div className="col-md-2">
                             <Select options={languageOptions}
                                 onChange={opt => this.setLanguage(opt.value)} />
@@ -131,7 +141,8 @@ export default class NavBarComponent extends Component {
                             <button className="btn btn-success wbdv-search-btn"
                                 type="button"
                                 onClick={() =>
-                                    this.props.searchJobs(this.state.language,
+                                    this.props.searchJobs(this.props.searchText,
+                                        this.state.language,
                                         this.state.jobType,
                                         this.state.isSponsorshipAvailable,
                                         this.props.locationText)}>

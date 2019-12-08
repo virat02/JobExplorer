@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 const stateToPropertyMapper = state => ({
     locationText: state.JobReducer.locationText,
+    searchText: state.JobReducer.searchText,
     localUsername: state.LocalStorageReducer.localUsername,
     token: state.AuthReducer.token,
     isAuthenticated: state.AuthReducer.token !== null
@@ -11,8 +12,9 @@ const stateToPropertyMapper = state => ({
 
 export const dispatcherToPropsMapper = dispatch => ({
     locationTextChanged: newLocationText => actions.locationTextChanged(dispatch, newLocationText),
-    searchJobs: (language, jobType, isSponsorshipAvailable, location) =>
-        actions.searchJobs(dispatch, language, jobType, isSponsorshipAvailable, location),
+    searchTextChanged: newSearchText => actions.searchTextChanged(dispatch, newSearchText),
+    searchJobs: (newSearchText, language, jobType, isSponsorshipAvailable, location) =>
+        actions.searchJobs(dispatch, newSearchText, language, jobType, isSponsorshipAvailable, location),
     logOut: () => actions.logout(dispatch),
 });
 

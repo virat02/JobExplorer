@@ -12,12 +12,16 @@ export default class JobSearchComponent extends React.Component {
         return (
             <div className="row">
                 {
-                    this.props.jobs.map(job =>
-                        <JobSearchCardComponent
-                            className="col-2"
-                            getJobDetails={this.props.getJobDetails}
-                            job={job}
-                            key={job.id} />)
+                    this.props.jobs.length !== 0 ?
+
+                        this.props.jobs.map(job =>
+                            <JobSearchCardComponent
+                                className="col-2"
+                                getJobDetails={this.props.getJobDetails}
+                                job={job}
+                                key={job.id} />)
+                        :
+                        <h3>No Jobs found matching your criteria, search again!</h3>
                 }
             </div>
         );
