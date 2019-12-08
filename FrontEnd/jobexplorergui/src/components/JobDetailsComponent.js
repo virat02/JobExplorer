@@ -2,6 +2,7 @@ import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import "../styles/jobCard.css";
 import "../styles/jobDetails.css";
+import { Button } from 'antd';
 
 export default class JobDetailsComponent extends React.Component {
 
@@ -20,7 +21,33 @@ export default class JobDetailsComponent extends React.Component {
                 <div className="row">
                     <h3>Job Description</h3>
                     <div> {ReactHtmlParser(this.props.job.description)} </div>
-                    <h3>Job Details</h3>
+                    <h3>How To Apply</h3>
+                    <div> {ReactHtmlParser(this.props.job.how_to_apply)} </div>
+
+                    {
+                        this.props.isAuthenticated &&
+
+                        // TODO: Grayscale button if bookmarked already
+                        <Button>
+                            Bookmark
+                        </Button>
+                    }
+                    {
+                        this.props.isAuthenticated &&
+                        // TODO: Grayscale button if liked already
+                        <Button>
+                            Like
+                        </Button>
+                    }
+
+                    {
+                        this.props.isAuthenticated &&
+                        // TODO: Grayscale button if disliked already
+                        <Button>
+                            Dislike
+                        </Button>
+                    }
+
                 </div>
             </div>
         );

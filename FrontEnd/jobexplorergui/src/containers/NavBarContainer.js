@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 const stateToPropertyMapper = state => ({
     locationText: state.JobReducer.locationText,
     searchText: state.JobReducer.searchText,
-    localUsername: state.LocalStorageReducer.localUsername,
     token: state.AuthReducer.token,
     isAuthenticated: state.AuthReducer.token !== null
 });

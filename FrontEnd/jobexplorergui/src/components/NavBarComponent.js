@@ -48,7 +48,7 @@ export default class NavBarComponent extends Component {
                 <span className={"sr-only"}>(current)</span>
             </Link>
             :
-            <Link to={"/profile/" + this.props.localUsername}
+            <Link to={"/profile"}
                 className={'wbdv-link nav-link'}>
                 Profile
                     <span className={"sr-only"}>(current)</span>

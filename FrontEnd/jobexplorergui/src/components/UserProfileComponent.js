@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Link } from "react-router-dom";
 import JobLikeContainer from "../containers/JobLikeContainer";
-import UserService from "../services/userService";
-
-const userService = new UserService();
+import JobDislikeContainer from "../containers/JobDislikeContainer";
+import JobBookmarkContainer from "../containers/JobBookmarkContainer";
 
 export default class UserProfileComponent extends React.Component {
 
@@ -11,35 +10,22 @@ export default class UserProfileComponent extends React.Component {
         super(props);
 
         this.state = {
-            userView: '',
-            jobsLikedText: '',
+            jobsLikedPill: this.props.jobsLikedPill,
+            jobsDislikedPill: this.props.jobsDislikedPill,
+            jobsBookmarkedPill: this.props.jobsBookmarkedPill
         }
-    }
-
-    componentDidMount() {
-        userService.getUsers(this.props.match.params.username)
-            .then(user => {
-                this.setState({
-                    userView: user[0],
-                    jobsLikedText: user[0].username === this.props.localUsername ?
-                        "Jobs You Like" : "Jobs " + user[0].firstName + " Liked"
-                })
-            });
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
 
-        if (nextProps.match.params.username !== this.state.userView.username) {
-            userService.getUsers(nextProps.match.params.username)
-                .then(user => {
-                    this.setState({
-                        userView: user[0],
-                        jobsLikedText: user[0].username === this.props.localUsername ?
-                            "Jobs You Like" : "Jobs " + user[0].firstName + " Liked"
-                    })
-                });
+        if (this.props !== nextProps) {
+            this.setState({
+                jobsLikedPill: nextProps.jobsLikedPill,
+                jobsDislikedPill: nextProps.jobsDislikedPill,
+                jobsBookmarkedPill: nextProps.jobsBookmarkedPill,
+            });
         }
-    }
+    };
 
     render() {
 
@@ -47,19 +33,35 @@ export default class UserProfileComponent extends React.Component {
             <div className="container">
                 <div>
                     <ul className="nav nav-pills">
-                        {
-                            // (this.state.userView.dtype === "Fan" ||
-                            //     (this.props.localRole === "Admin" && this.state.userView.dtype === "Fan")) &&
-                            <li className="nav-item"
-                                onClick={this.props.activeJobsLikePill}>
-                                <Link to={`/profile/${this.state.userView.username}/jobsLiked`}
-                                    className={this.props.setMoviesLikePill ? "nav-link active" : "nav-link"}>
-                                    {this.state.jobsLikedText}
-                                </Link>
-                            </li>
-                        }
+
+                        <li className="nav-item"
+                            onClick={this.props.activateJobsBookmarkedPill}>
+                            <Link to={`/profile/jobsBookmarked`}
+                                className={this.state.jobsBookmarkedPill ? "nav-link active" : "nav-link"}>
+                                Jobs Bookmarked
+                            </Link>
+                        </li>
+
+                        <li className="nav-item"
+                            onClick={this.props.activateJobsLikedPill}>
+                            <Link to={`/profile/jobsLiked`}
+                                className={this.state.jobsLikedPill ? "nav-link active" : "nav-link"}>
+                                Jobs Liked
+                            </Link>
+                        </li>
+
+                        <li className="nav-item"
+                            onClick={this.props.activateJobsDislikedPill}>
+                            <Link to={`/profile/jobsDisliked`}
+                                className={this.state.jobsDislikedPill ? "nav-link active" : "nav-link"}>
+                                Jobs Disliked
+                            </Link>
+                        </li>
+
                     </ul>
-                    <Route path={"/profile/:username/jobsLiked"} component={JobLikeContainer} />
+                    <Route path={"/profile/jobsLiked"} component={JobLikeContainer} />
+                    <Route path={"/profile/jobsDisliked"} component={JobDislikeContainer} />
+                    <Route path={"/profile/jobsBookmarked"} component={JobBookmarkContainer} />
                 </div>
             </div>
         );

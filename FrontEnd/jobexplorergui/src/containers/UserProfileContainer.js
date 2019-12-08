@@ -3,15 +3,18 @@ import UserProfileComponent from "../components/UserProfileComponent";
 import * as actions from "../actions";
 
 const stateToPropertyMapper = state => ({
-    localUsername: state.LocalStorageReducer.localUsername,
-    token: state.LocalStorageReducer.token,
-    setJobsLikePill: state.ActivatePillReducer.setJobsLikePill
+    jobsLikedPill: state.PillReducer.jobsLikedPill,
+    jobsDisLikedPill: state.PillReducer.jobsDisLikedPill,
+    jobsBookmarkedPill: state.PillReducer.jobsBookmarkedPill
 });
 
 export const dispatcherToPropsMapper = dispatch => ({
-    activeJobsLikePill: () => actions.activeJobLikePill(dispatch)
+    activateJobsLikedPill: () => actions.activateJobsLikedPill(dispatch),
+    activateJobsDislikedPill: () => actions.activateJobsDislikedPill(dispatch),
+    activateJobsBookmarkedPill: () => actions.activateJobsBookmarkedPill(dispatch)
 });
 
-const UserProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(UserProfileComponent);
+const UserProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)
+    (UserProfileComponent);
 
 export default UserProfileContainer;

@@ -132,29 +132,23 @@ export const getJobDetails = (dispatch, jobId) => {
  */
 export const likeJob = (dispatch, jobId, username) =>
 
-    jobService.checkIfUserLikesJob(username, jobId)
-        .then(bool =>
-            !bool ?
-                jobService.likeJob(jobId, username)
-                    .then(() =>
-                        dispatch({
-                            type: constants.SET_LIKED_ALERT,
-                            message: "Liked the job!"
-                        }))
-                :
-
-                dispatch({
-                    type: constants.SET_ALREADY_LIKED_ALERT,
-                    message: "You already like the job!"
-                })
-
-        );
+    jobService.likeJob(jobId, username)
+        .then(() =>
+            dispatch({
+                type: constants.SET_LIKE_JOB_ALERT,
+                message: "Liked the job!"
+            }))
+        .catch(() =>
+            dispatch({
+                type: constants.SET_ALREADY_LIKED_JOB_ALERT,
+                message: "You already like this job!"
+            }));
 
 /**
  * METHOD TO GET JOBS LIKED
  */
-export const getJobsLiked = (dispatch, username) => {
-    jobService.getJobsLiked(username)
+export const getJobsLiked = dispatch => {
+    jobService.getJobsLiked()
         .then(jobsLiked =>
             dispatch({
                 type: constants.GET_JOBS_LIKED,
@@ -166,24 +160,106 @@ export const getJobsLiked = (dispatch, username) => {
 /**
  * DISLIKE A JOB
  */
-export const dislikeJob = (dispatch, jobId, username) => {
-    jobService.dislikeJob(jobId, username)
-        .then(() => {
+export const dislikeJob = (dispatch, jobId) => {
+    jobService.dislikeJob(jobId)
+        .then(() =>
             dispatch({
                 type: constants.SET_DISLIKE_JOB_ALERT,
-                message: "Disliked job!"
-            });
+                message: "Disliked the job!"
+            }))
+        .catch(() =>
+            dispatch({
+                type: constants.SET_ALREADY_DISLIKED_JOB_ALERT,
+                message: "You already dislike this job!"
+            }));
 
-            return getJobsLiked(dispatch, username);
-        }
+
+    return getJobsLiked(dispatch);
+}
+
+/**
+ * METHOD TO GET JOBS DISLIKED
+ */
+export const getJobsDisliked = dispatch => {
+    jobService.getJobsDisliked()
+        .then(jobsDisliked =>
+            dispatch({
+                type: constants.GET_JOBS_DISLIKED,
+                jobsDisliked: jobsDisliked
+            })
         )
 };
 
 /**
- * METHOD TO SET JOB LIKE PILL ACTIVE
+ * METHOD TO BOOKMARK A JOB
  */
-export const activeJobLikePill = dispatch =>
+export const bookmarkJob = (dispatch, jobId, username) =>
+
+    jobService.bookmarkJob(jobId, username)
+        .then(() =>
+            dispatch({
+                type: constants.SET_BOOKMARK_JOB_ALERT,
+                message: "Bookmarked the job!"
+            }))
+        .catch(() =>
+            dispatch({
+                type: constants.SET_ALREADY_BOOKMARKED_JOB_ALERT,
+                message: "You already have bookmarked this job!"
+            }));
+
+/**
+ * METHOD TO UNBOOKMARK A JOB
+ */
+export const unbookmarkJob = (dispatch, jobId) =>
+
+    jobService.unbookmarkJob(jobId)
+        .then(() =>
+            dispatch({
+                type: constants.SET_UNBOOKMARK_JOB_ALERT,
+                message: "Un-bookmarked the job!"
+            }))
+        .catch(() =>
+            dispatch({
+                type: constants.SET_CANNOT_BOOKMARK_JOB_ALERT,
+                message: "You cannot unbookmark a job without first bookmarking it!"
+            }));
+
+/**
+ * METHOD TO GET JOBS BOOKMARKED
+ */
+export const getJobsBookmarked = dispatch => {
+    jobService.getJobsBookmarked()
+        .then(jobsBookmarked =>
+            dispatch({
+                type: constants.GET_JOBS_BOOKMARKED,
+                jobsBookmarked: jobsBookmarked
+            })
+        )
+};
+
+/**
+ * METHOD TO SET JOBS LIKED PILL ACTIVE
+ */
+export const activateJobsLikedPill = dispatch =>
     dispatch({
-        type: constants.ACTIVATE_JOB_LIKE_PILL,
-        setJobLikePill: true
+        type: constants.ACTIVATE_JOBS_LIKED_PILL,
+        jobsLikedPill: true
+    });
+
+/**
+ * METHOD TO SET JOBS DISLIKED PILL ACTIVE
+ */
+export const activateJobsDislikedPill = dispatch =>
+    dispatch({
+        type: constants.ACTIVATE_JOBS_DISLIKED_PILL,
+        jobsDislikedPill: true
+    });
+
+/**
+ * METHOD TO SET JOBS BOOKMARKED PILL ACTIVE
+ */
+export const activateJobsBookmarkedPill = dispatch =>
+    dispatch({
+        type: constants.ACTIVATE_JOBS_BOOKMARKED_PILL,
+        jobsBookmarkedPill: true
     });

@@ -7,10 +7,11 @@ const stateToPropertyMapper = state => ({
 });
 
 const dispatcherToPropsMapper = dispatch => ({
-    getJobsLiked: username => actions.getJobsLiked(dispatch, username),
-    dislikeJob: (jobId, username) => actions.dislikeJob(dispatch, jobId, username)
+    getJobsLiked: () => actions.getJobsLiked(dispatch),
+    dislikeJob: (jobId) => actions.dislikeJob(dispatch, jobId)
 });
 
-const JobLikeContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(JobLikeComponent);
+const JobLikeContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)
+    (JobLikeComponent);
 
 export default JobLikeContainer

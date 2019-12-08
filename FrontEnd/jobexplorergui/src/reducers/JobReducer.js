@@ -5,6 +5,8 @@ const JobReducer = (state = {
     locationText: '',
     searchText: '',
     job: '',
+    isLiked: '',
+    isBookmarked: ''
 }, action) => {
     switch (action.type) {
 
@@ -19,6 +21,15 @@ const JobReducer = (state = {
 
         case constants.SEARCH_TEXT_CHANGED:
             return { ...state, searchText: action.searchText };
+
+        case constants.JOB_LIKED:
+            return { ...state, isLiked: action.isLiked };
+
+        case constants.JOB_BOOKMARKED:
+            return { ...state, isBookmarked: action.isBookmarked };
+
+        case constants.JOB_DISLIKED:
+            return { ...state, isLiked: action.isLiked };
 
         default:
             return state;
