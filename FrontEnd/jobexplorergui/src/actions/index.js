@@ -1,9 +1,7 @@
-import axios from 'axios';
 import * as constants from '../constants'
 import history from '../History'
 import JobService from "../services/jobService";
 import AuthService from "../services/authService";
-let baseURL = "http://127.0.0.1:8000";
 
 const jobService = new JobService();
 const authService = new AuthService();
@@ -54,11 +52,11 @@ export const authFail = error => {
 /**
  * LOGOUT METHOD
  */
-export const logout = () => {
+export const logout = dispatch => {
     localStorage.removeItem('token');
-    return {
+    dispatch({
         type: constants.AUTH_LOGOUT
-    };
+    });
 }
 
 /**

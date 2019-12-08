@@ -40,7 +40,7 @@ const AuthReducer = (state = initialState, action) => {
         case constants.AUTH_START: return authStart(state, action);
         case constants.AUTH_SUCCESS: return authSuccess(state, action);
         case constants.AUTH_FAIL: return authFail(state, action);
-        case constants.AUTH_LOGOUT: return authLogout(state, action);
+        case constants.AUTH_LOGOUT: return authLogout(state, action)
         default:
             return state;
     }

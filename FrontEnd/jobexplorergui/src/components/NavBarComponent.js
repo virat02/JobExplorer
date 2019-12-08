@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import "../styles/NavBar.css";
 import Select from 'react-select';
-import { Checkbox } from 'antd';
+import { Checkbox, Button } from 'antd';
 
 const languageOptions = [
     { label: 'Java', value: "java" },
@@ -21,19 +21,18 @@ export default class NavBarComponent extends Component {
 
         this.state = {
             jobType: "",
-            isSponsorshipAvailable: false,
+            isSponsorshipAvailable: true,
             language: "",
             location: "",
+            token: this.props.token,
+            isAuthenticated: this.props.isAuthenticated
         }
     }
 
     renderLogin() {
-        return this.props.isAuthenticated ?
-            <Link to={""} id={"logoutLink"}
-                className={"wbdv-link nav-link"}
-                onClick={this.props.logOut}>
-                Logout
-            </Link>
+        return this.state.isAuthenticated ?
+
+            <Button type="button" onClick={() => this.props.logOut()}>Logout</Button>
             :
             <Link to={`/login`} className={'wbdv-link nav-link'}>
                 Login
@@ -42,12 +41,17 @@ export default class NavBarComponent extends Component {
     }
 
     renderRegisterProfile() {
-        if (this.props.localUsername == null) {
-            return <Link to={`/register`} className={'wbdv-link nav-link'}>
+        return !this.state.isAuthenticated ?
+            <Link to={`/register`} className={'wbdv-link nav-link'}>
                 Register
                 <span className={"sr-only"}>(current)</span>
             </Link>
-        }
+            :
+            <Link to={"/profile/" + this.props.localUsername}
+                className={'wbdv-link nav-link'}>
+                Profile
+                    <span className={"sr-only"}>(current)</span>
+            </Link>
     }
 
     setJobType = event => {
@@ -71,6 +75,16 @@ export default class NavBarComponent extends Component {
             language: language
         });
 
+    componentWillReceiveProps(nextProps, nextContext) {
+
+        if (this.props !== nextProps) {
+            this.setState({
+                token: nextProps.token,
+                isAuthenticated: nextProps.token !== null ? true : false
+            });
+        }
+    };
+
     render() {
         return (
             <header className={"container-fluid"}>
@@ -79,28 +93,40 @@ export default class NavBarComponent extends Component {
                         <a className={"navbar-brand"} href={"/"}>
                             <span>
                                 Find a Job
-                            </span>
+                                </span>
                         </a>
                     </div>
-                    <div className="col-md-2">
-                        <Select options={languageOptions}
-                            onChange={opt => this.setLanguage(opt.value)} />
-                    </div>
+                    {
+                        this.state.isAuthenticated &&
+                        <div className="col-md-2">
+                            <Select options={languageOptions}
+                                onChange={opt => this.setLanguage(opt.value)} />
+                        </div>
+                    }
+
+                    {
+                        this.state.isAuthenticated &&
+                        <div className="col-md-2">
+                            <Checkbox onChange={this.setJobType}>Full Time</Checkbox>
+                        </div>
+                    }
+
+                    {
+                        this.state.isAuthenticated &&
+                        <div className="col-md-2">
+                            <Checkbox onChange={this.setSponsorshipAvailable}>Sponsorsip available</Checkbox>
+                        </div>
+                    }
 
                     <div className="col-md-2">
-                        <Checkbox onChange={this.setJobType}>Full Time</Checkbox>
-                    </div>
-
-                    <div className="col-md-2">
-                        <Checkbox onChange={this.setSponsorshipAvailable}>Sponsorsip available</Checkbox>
-                    </div>
-
-                    <div className="col-md-2">
-                        <input className={"form-control wbdv-search-bar input-lg"}
-                            type="text"
-                            placeholder="Enter a location"
-                            onChange={event => this.props.locationTextChanged(event.target.value)}
-                            aria-label="Search" />
+                        {
+                            this.state.isAuthenticated &&
+                            <input className={"form-control wbdv-search-bar input-lg"}
+                                type="text"
+                                placeholder="Enter a location"
+                                onChange={event => this.props.locationTextChanged(event.target.value)}
+                                aria-label="Search" />
+                        }
                         <Link to={`/jobs`}>
                             <button className="btn btn-success wbdv-search-btn"
                                 type="button"
@@ -111,7 +137,7 @@ export default class NavBarComponent extends Component {
                                         this.props.locationText)}>
                                 <span className={"text-center wbdv-search-btn-text"}>
                                     Search
-                                </span>
+                                    </span>
                             </button>
                         </Link>
                     </div>
@@ -122,7 +148,7 @@ export default class NavBarComponent extends Component {
                                 <li className="nav-item">
                                     <Link to={`/`} className='wbdv-link nav-link'>
                                         Home
-                                        <span className="sr-only">(current)</span>
+                                            <span className="sr-only">(current)</span>
                                     </Link>
                                 </li>
                                 <li className={"nav-item"}>

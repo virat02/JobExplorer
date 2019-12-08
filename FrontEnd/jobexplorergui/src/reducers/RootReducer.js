@@ -1,19 +1,17 @@
 import { combineReducers } from 'redux';
 
-import LoginReducer from './LoginReducer';
 import LocalStorageReducer from './LocalStorageReducer';
-import RegisterReducer from './RegisterReducer';
 import JobReducer from './JobReducer';
 import AuthReducer from './AuthReducer';
 import ActivatePillReducer from './ActivatePillReducer';
+import AlertReducer from './AlertReducer';
 
 const RootReducer = combineReducers({
-    LoginReducer,
     LocalStorageReducer,
-    RegisterReducer,
     JobReducer,
     AuthReducer,
-    ActivatePillReducer
+    ActivatePillReducer,
+    AlertReducer
 });
 
 export default RootReducer;

@@ -14,7 +14,7 @@ class RegistrationForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.onAuth(
+                this.props.doRegister(
                     values.userName,
                     values.email,
                     values.password,

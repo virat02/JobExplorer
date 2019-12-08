@@ -61,12 +61,12 @@ class LoginForm extends Component {
                             <FormItem>
                                 <Button type="primary" htmlType="submit" style={{ marginRight: '10px' }}>
                                     Login
-                            </Button>
+                                </Button>
                                 Or
-                            <NavLink
+                                <NavLink
                                     style={{ marginRight: '10px' }}
                                     to='/register'> SignUp
-                            </NavLink>
+                                </NavLink>
                             </FormItem>
                         </Form>
                 }

@@ -23,16 +23,28 @@ export default class JobService {
         })
             .then(response => response.data);
 
+
     //Gets the details for a particular job
     getJobDetails = jobId =>
-        fetch(baseURL + "/api/jobs/" + jobId)
-            .then(response => response.json());
+        axios.get(baseURL + "/api/jobs/" + jobId)
+            .then(response => response.data);
 
-    //Like a job
-    likeJob = (jobId, username) =>
+    //Like a job, needs Authentication
+    likeJob = (jobId, username) => {
+        axios.defaults.headers = {
+            "Content-Type": "application/json",
+            Authorization: this.props.token
+        }
         axios.post(baseURL + "/api/like/user/" + username + "/job/" + jobId);
+    };
 
-    //Dislike the job
-    dislikeJob = (jobId, username) =>
+    //Dislike the job, needs Authentication
+    dislikeJob = (jobId, username) => {
+        axios.defaults.headers = {
+            "Content-Type": "application/json",
+            Authorization: this.props.token
+        }
+
         axios.delete(baseURL + "/api/like/user/" + username + "/job/" + jobId);
+    };
 }
