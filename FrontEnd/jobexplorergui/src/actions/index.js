@@ -87,9 +87,9 @@ export const register = (dispatch, username, email, password1, password2) => {
  * SEARCH JOB METHOD
  */
 
-export const searchJobsByKeyword = (dispatch, jobTitle) => {
+export const searchJobs = (dispatch, language, jobType, isSponsorshipAvailable, location) => {
 
-    jobService.searchJobByJobName(jobTitle)
+    jobService.searchJobs(language, jobType, isSponsorshipAvailable, location)
         .then(jobs =>
             dispatch({
                 type: constants.SEARCH_JOB,
@@ -101,10 +101,10 @@ export const searchJobsByKeyword = (dispatch, jobTitle) => {
 /**
  * HELPER METHOD FOR SEARCH JOB
  */
-export const searchTextChanged = (dispatch, searchText) => {
+export const locationTextChanged = (dispatch, newLocationText) => {
     dispatch({
-        type: constants.SEARCH_TEXT_CHANGED,
-        searchText: searchText
+        type: constants.LOCATION_TEXT_CHANGED,
+        locationText: newLocationText
     })
 };
 

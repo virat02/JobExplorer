@@ -1,15 +1,29 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import history from "../History";
 import "../styles/NavBar.css";
+import Select from 'react-select';
+import { Checkbox } from 'antd';
+
+const languageOptions = [
+    { label: 'Java', value: "java" },
+    { label: 'Python', value: "python" },
+    { label: 'JavaScript', value: "javascript" },
+    { label: 'Scala', value: "scala" },
+    { label: 'React', value: "react" },
+    { label: 'Angular', value: "sngular" },
+    { label: 'SQL', value: "sql" },
+];
+
 
 export default class NavBarComponent extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchValue: "Jobs",
-            placeholder: "Search for Jobs"
+            jobType: "",
+            isSponsorshipAvailable: false,
+            language: "",
+            location: "",
         }
     }
 
@@ -36,9 +50,28 @@ export default class NavBarComponent extends Component {
         }
     }
 
-    render() {
-        let newSearchText;
+    setJobType = event => {
+        return event.target.checked === true ?
+            this.setState({
+                jobType: "Full Time"
+            })
+            :
+            this.setState({
+                jobType: "Part Time"
+            });
+    }
 
+    setSponsorshipAvailable = event =>
+        this.setState({
+            isSponsorshipAvailable: event.target.checked
+        });
+
+    setLanguage = language =>
+        this.setState({
+            language: language
+        });
+
+    render() {
         return (
             <header className={"container-fluid"}>
                 <nav className={"navbar navbar-expand-md navbar-dark fixed-top row"}>
@@ -49,28 +82,40 @@ export default class NavBarComponent extends Component {
                             </span>
                         </a>
                     </div>
-                    <div className="col-md-4">
-                        <div className="row">
-                            <input className={"form-control wbdv-search-bar input-lg"}
-                                type="text"
-                                placeholder={this.state.placeholder}
-                                onChange={() => this.props.searchTextChanged(newSearchText.value)}
-                                ref={node => newSearchText = node}
-                                aria-label="Search" />
+                    <div className="col-md-2">
+                        <Select options={languageOptions}
+                            onChange={opt => this.setLanguage(opt.value)} />
+                    </div>
+
+                    <div className="col-md-2">
+                        <Checkbox onChange={this.setJobType}>Full Time</Checkbox>
+                    </div>
+
+                    <div className="col-md-2">
+                        <Checkbox onChange={this.setSponsorshipAvailable}>Sponsorsip available</Checkbox>
+                    </div>
+
+                    <div className="col-md-2">
+                        <input className={"form-control wbdv-search-bar input-lg"}
+                            type="text"
+                            placeholder="Enter a location"
+                            onChange={event => this.props.locationTextChanged(event.target.value)}
+                            aria-label="Search" />
+                        <Link to={`/jobs`}>
                             <button className="btn btn-success wbdv-search-btn"
                                 type="button"
-                                onClick={() => {
-                                    if (this.props.searchText.length == 0) {
-                                        history.push('/jobs');
-                                    }
-                                    this.props.searchJobsByKeyword(this.props.searchText);
-                                }}>
+                                onClick={() =>
+                                    this.props.searchJobs(this.state.language,
+                                        this.state.jobType,
+                                        this.state.isSponsorshipAvailable,
+                                        this.props.locationText)}>
                                 <span className={"text-center wbdv-search-btn-text"}>
                                     Search
-                                    </span>
+                                </span>
                             </button>
-                        </div>
+                        </Link>
                     </div>
+
                     <div className="col-md-4">
                         <div className="navbar" id="navbarCollapse">
                             <ul className="navbar-nav">

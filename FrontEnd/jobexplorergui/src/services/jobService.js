@@ -12,9 +12,16 @@ export default class JobService {
     }
 
     //retrieves all jobs
-    searchJobByJobName = jobName =>
-        fetch(baseURL + "/api/jobs" + jobName)
-            .then(response => response.json());
+    searchJobs = (language, jobType, isSponsorshipAvailable, location) =>
+        axios.get(baseURL + '/api/jobs/', {
+            params: {
+                language: language,
+                type: jobType,
+                sponsorship_available: isSponsorshipAvailable,
+                location: location
+            }
+        })
+            .then(response => response.data);
 
     //Gets the details for a particular job
     getJobDetails = jobId =>

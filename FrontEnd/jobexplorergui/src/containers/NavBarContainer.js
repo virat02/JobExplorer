@@ -3,13 +3,14 @@ import * as actions from "../actions";
 import { connect } from "react-redux";
 
 const stateToPropertyMapper = state => ({
-    searchText: state.JobReducer.searchText,
+    locationText: state.JobReducer.locationText,
     localUsername: state.LocalStorageReducer.localUsername
 });
 
 export const dispatcherToPropsMapper = dispatch => ({
-    searchTextChanged: newText => actions.searchTextChanged(dispatch, newText),
-    searchJobsByKeyword: jobTitle => actions.searchJobsByKeyword(dispatch, jobTitle),
+    locationTextChanged: newLocationText => actions.locationTextChanged(dispatch, newLocationText),
+    searchJobs: (language, jobType, isSponsorshipAvailable, location) =>
+        actions.searchJobs(dispatch, language, jobType, isSponsorshipAvailable, location),
     logOut: () => actions.logout(dispatch),
 });
 
