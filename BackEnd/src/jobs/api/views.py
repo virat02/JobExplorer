@@ -7,7 +7,8 @@ from .serializers import JobSerializer, UserSerializer, CompanySerializer
 
 
 class JobViewSet(viewsets.ModelViewSet):
-    __basic_fields = ('language', 'sponsorship_available', 'type', 'location')
+    __basic_fields = ('language', 'sponsorship_available',
+                      'type', 'location', 'description', 'company__name')
     serializer_class = JobSerializer
     queryset = Job.objects.all()
     filter_backends = [SearchFilter, filters.DjangoFilterBackend]
