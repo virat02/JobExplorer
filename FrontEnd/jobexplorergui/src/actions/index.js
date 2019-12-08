@@ -57,6 +57,7 @@ export const logout = dispatch => {
     dispatch({
         type: constants.AUTH_LOGOUT
     });
+    history.push("/");
 }
 
 /**
@@ -74,7 +75,7 @@ export const register = (dispatch, username, email, password1, password2) => {
             const token = res.data.key;
             localStorage.setItem('token', token);
             dispatch(authSuccess(token));
-            history.push('/login');
+            history.push('/');
         })
         .catch(err => {
             dispatch(authFail(err))
