@@ -5,12 +5,12 @@ import uuid
 
 class CustomUser(AbstractUser):
     favourite_jobs = models.ManyToManyField(
-        'Job', blank=True, through='Favourites')
+        'Job', null=True, blank=True, through='Favourites')
     liked_jobs = models.ManyToManyField(
-        'Job', blank=True,
+        'Job', null=True, blank=True,
         related_name="user_like", through='Likes')
     disliked_jobs = models.ManyToManyField(
-        'Job', blank=True,
+        'Job', null=True, blank=True,
         related_name="user_dislike", through='Dislikes')
 
 
@@ -42,15 +42,15 @@ class Job(models.Model):
     language = models.CharField(max_length=200)
     sponsorship_available = models.BooleanField(default=True)
     favourite_users = models.ManyToManyField(
-        'CustomUser', blank=True, through='Favourites')
+        'CustomUser', null=True, blank=True, through='Favourites')
     liked_by_users = models.ManyToManyField(
-        'CustomUser', blank=True,
+        'CustomUser', null=True, blank=True,
         related_name="job_like", through='Likes')
     disliked_by_users = models.ManyToManyField(
-        'CustomUser', blank=True,
+        'CustomUser', null=True, blank=True,
         related_name="job_dislike", through='Dislikes')
-    company = models.ForeignKey(Company, 
-                                on_delete=models.CASCADE, null=True, 
+    company = models.ForeignKey(Company,
+                                on_delete=models.CASCADE, null=True,
                                 related_name='companies')
 
     def __str__(self):
@@ -71,9 +71,11 @@ class Likes(models.Model):
     id = models.AutoField(verbose_name='USER_LIKE_JOB_ID',
                           auto_created=True, primary_key=True)
     user = models.ForeignKey(
-        CustomUser, related_name="user_like", on_delete=models.CASCADE)
+        CustomUser, related_name="user_like", null=True, blank=True,
+        on_delete=models.CASCADE)
     job = models.ForeignKey(
-        Job, related_name="job_like", on_delete=models.CASCADE)
+        Job, related_name="job_like", null=True, blank=True,
+        on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)

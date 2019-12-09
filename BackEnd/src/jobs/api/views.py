@@ -1,13 +1,14 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter
 from rest_framework.views import APIView
-from rest_framework import authentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from jobs.models import Job, CustomUser, Company, Likes
 from .serializers import (JobSerializer, UserSerializer,
                           CompanySerializer, LikeSerializer,
-                          LikedJobsSerializer)
+                          DislikeSerializer, BookmarkSerializer)
 
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -34,24 +35,66 @@ class LikeViewSet(viewsets.ModelViewSet):
 
     queryset = Likes.objects.all()
     serializer_class = LikeSerializer
+    permission_classes = (IsAuthenticated,)
 
-    def post(self, request):
-        serializer_class = LikeSerializer(data=request.data)
-        authentication_classes = (TokenAuthentication,)
+    def create(self, request):
+        serializer = LikeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=request.user, job=request.job)
+        serializer.save(user=request.user)
+        return Response(status=status.HTTP_201_CREATED)
+
+
+class DislikeViewSet(viewsets.ModelViewSet):
+
+    queryset = Likes.objects.all()
+    serializer_class = DislikeSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        serializer = DislikeSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
+        return Response(status=status.HTTP_201_CREATED)
+
+
+class BookmarkViewSet(viewsets.ModelViewSet):
+
+    queryset = Likes.objects.all()
+    serializer_class = BookmarkSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request):
+        serializer = BookmarkSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
         return Response(status=status.HTTP_201_CREATED)
 
 
 class LikedJobsViewSet(viewsets.ModelViewSet):
-
-    # queryset = Job.objects.all()
     serializer_class = JobSerializer
-
-    def get(self, request):
-        authentication_classes = (TokenAuthentication,)
-        user = CustomUser.objects.get(id=request.user)
-        return Job.objects.filter(id__in=user.liked_jobs)
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        return {}
+        user = CustomUser.objects.get(id=self.request.user.id)
+        queryset = user.liked_jobs.all()
+        return queryset
+
+
+class DislikedJobsViewSet(viewsets.ModelViewSet):
+    serializer_class = JobSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        user = CustomUser.objects.get(id=self.request.user.id)
+        queryset = user.disliked_jobs.all()
+        return queryset
+
+
+class BookmarkedJobsViewSet(viewsets.ModelViewSet):
+    serializer_class = JobSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        user = CustomUser.objects.get(id=self.request.user.id)
+        queryset = user.favourite_jobs.all()
+        return queryset

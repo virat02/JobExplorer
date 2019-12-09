@@ -1,4 +1,5 @@
-from jobs.models import Job, CustomUser, Company, Likes
+from jobs.models import (Job, CustomUser, Company, Likes,
+                         Dislikes, Favourites)
 from rest_framework import serializers
 
 
@@ -33,10 +34,16 @@ class CompanySerializer(serializers.ModelSerializer):
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Likes
-        fields = ('user', 'job')
+        fields = ('job',)
 
 
-class LikedJobsSerializer(serializers.ModelSerializer):
+class DislikeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
-        fields = ('liked_jobs')
+        model = Dislikes
+        fields = ('job',)
+
+
+class BookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favourites
+        fields = ('job',)
