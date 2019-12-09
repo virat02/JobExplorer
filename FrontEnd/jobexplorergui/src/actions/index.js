@@ -175,6 +175,7 @@ export const removeLikedJob = (dispatch, jobId, token) =>
                 message: "Removed liked job from list"
             });
 
+            //refresh the liked list
             return getJobsLiked(dispatch, token);
         })
         .catch(() =>
@@ -231,6 +232,7 @@ export const removeDislikedJob = (dispatch, jobId, token) =>
                 message: "Removed disliked job from list"
             });
 
+            //refresh the disliked list
             return getJobsDisliked(dispatch, token);
 
         })
@@ -287,6 +289,7 @@ export const unbookmarkJob = (dispatch, jobId, token) =>
                 message: "Un-bookmarked the job"
             });
 
+            //refresh the bookmarked list 
             return getJobsBookmarked(dispatch, token);
 
         })
@@ -323,6 +326,9 @@ export const activateJobsBookmarkedPill = dispatch =>
         jobsBookmarkedPill: true
     });
 
+/**
+ * METHOD TO DEACTIVATE ALL PROFILE PILLS
+ */
 export const deactivateAllPills = dispatch =>
     dispatch({
         type: constants.DEACTIVATE_ALL_PILLS,
