@@ -47,6 +47,18 @@ class LikeViewSet(viewsets.ModelViewSet):
         serializer.save(user=request.user)
         return Response(status=status.HTTP_201_CREATED)
 
+    def partial_update(self, request, pk=None):
+        if pk is None:
+            raise APIException("Need to provide a job id to update")
+        user = CustomUser.objects.get(id=self.request.user.id)
+        job = user.liked_jobs.filter(id=pk).first()
+        if not job:
+            raise APIException(
+                "Job to unlike doesn't exist is user's liked jobs list!")
+        user.liked_jobs.remove(job)
+        user.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class DislikeViewSet(viewsets.ModelViewSet):
 
@@ -57,8 +69,23 @@ class DislikeViewSet(viewsets.ModelViewSet):
     def create(self, request):
         serializer = DislikeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        user = CustomUser.objects.get(id=self.request.user.id)
+        if user.disliked_jobs.filter(id=request.data["job"]).exists():
+            raise APIException("Job already disliked!")
         serializer.save(user=request.user)
         return Response(status=status.HTTP_201_CREATED)
+
+    def partial_update(self, request, pk=None):
+        if pk is None:
+            raise APIException("Need to provide a job id to update")
+        user = CustomUser.objects.get(id=self.request.user.id)
+        job = user.disliked_jobs.filter(id=pk).first()
+        if not job:
+            raise APIException(
+                "Job to un-dislike doesn't exist is user's disliked jobs list!")
+        user.disliked_jobs.remove(job)
+        user.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class BookmarkViewSet(viewsets.ModelViewSet):
@@ -70,8 +97,23 @@ class BookmarkViewSet(viewsets.ModelViewSet):
     def create(self, request):
         serializer = BookmarkSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        user = CustomUser.objects.get(id=self.request.user.id)
+        if user.favourite_jobs.filter(id=request.data["job"]).exists():
+            raise APIException("Job already bookmarked!")
         serializer.save(user=request.user)
         return Response(status=status.HTTP_201_CREATED)
+
+    def partial_update(self, request, pk=None):
+        if pk is None:
+            raise APIException("Need to provide a job id to update")
+        user = CustomUser.objects.get(id=self.request.user.id)
+        job = user.favourite_jobs.filter(id=pk).first()
+        if not job:
+            raise APIException(
+                "Job to un-bookmark doesn't exist is user's bookmarked jobs list!")
+        user.favourite_jobs.remove(job)
+        user.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class LikedJobsViewSet(viewsets.ModelViewSet):
