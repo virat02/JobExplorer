@@ -20,7 +20,8 @@ class JobViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for CRUD with Job model.
     """
-    permission_classes = (AnonymousUserPermission | IsAuthenticated, )
+    permission_classes = (AnonymousUserPermission |
+                          IsAuthenticated | IsAdminUser, )
     __basic_fields = ('language', 'sponsorship_available',
                       'type', 'location', 'description', 'company__name')
     serializer_class = JobSerializer
@@ -35,7 +36,7 @@ class UserViewSet(viewsets.ModelViewSet):
     A simple ViewSet for CRUD with User model.
     """
     serializer_class = UserSerializer
-    permission_classes = (IsAdminUser, IsAuthenticated, )
+    permission_classes = (IsAdminUser | IsAuthenticated, )
     queryset = CustomUser.objects.all()
 
 
@@ -44,7 +45,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
     A simple ViewSet for CRUD with Company model.
     """
     serializer_class = CompanySerializer
-    permission_classes = (IsAdminUser, IsAuthenticated,)
+    permission_classes = (IsAdminUser | IsAuthenticated,)
     queryset = Company.objects.all()
 
 # -------------------------- FEATURES ---------------------------
@@ -56,7 +57,7 @@ class LikeViewSet(viewsets.ModelViewSet):
     """
     queryset = Likes.objects.all()
     serializer_class = LikeSerializer
-    permission_classes = (IsAdminUser, IsAuthenticated,)
+    permission_classes = (IsAdminUser | IsAuthenticated,)
 
     """
     Get request
@@ -117,7 +118,7 @@ class DislikeViewSet(viewsets.ModelViewSet):
     """
     queryset = Likes.objects.all()
     serializer_class = DislikeSerializer
-    permission_classes = (IsAdminUser, IsAuthenticated,)
+    permission_classes = (IsAdminUser | IsAuthenticated,)
 
     """
     Get request
@@ -178,7 +179,7 @@ class BookmarkViewSet(viewsets.ModelViewSet):
     """
     queryset = Likes.objects.all()
     serializer_class = BookmarkSerializer
-    permission_classes = (IsAdminUser, IsAuthenticated,)
+    permission_classes = (IsAdminUser | IsAuthenticated,)
 
     """
     Get request
@@ -238,7 +239,7 @@ class LikedJobsViewSet(viewsets.ModelViewSet):
     A simple ViewSet for viewing liked jobs.
     """
     serializer_class = JobSerializer
-    permission_classes = (IsAdminUser, IsAuthenticated,)
+    permission_classes = (IsAdminUser | IsAuthenticated,)
 
     def get_queryset(self):
         # Check if user exists, else raise APIException
@@ -255,7 +256,7 @@ class DislikedJobsViewSet(viewsets.ModelViewSet):
     A simple ViewSet for viewing disliked jobs.
     """
     serializer_class = JobSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAdminUser | IsAuthenticated,)
 
     def get_queryset(self):
         # Check if user exists, else raise APIException
@@ -272,7 +273,7 @@ class BookmarkedJobsViewSet(viewsets.ModelViewSet):
     A simple ViewSet for viewing bookmarked jobs.
     """
     serializer_class = JobSerializer
-    permission_classes = (IsAdminUser, IsAuthenticated,)
+    permission_classes = (IsAdminUser | IsAuthenticated,)
 
     def get_queryset(self):
         # Check if user exists, else raise APIException
