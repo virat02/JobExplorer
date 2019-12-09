@@ -9,7 +9,7 @@ const stateToPropertyMapper = state => ({
 
 const dispatcherToPropsMapper = dispatch => ({
     getJobsBookmarked: token => actions.getJobsBookmarked(dispatch, token),
-    unbookmarkJob: (jobId, token) => actions.unbookmarkJob(dispatch, jobId, token)
+    remove: (jobId, token) => actions.unbookmarkJob(dispatch, jobId, token)
 });
 
 const JobBookmarkContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)

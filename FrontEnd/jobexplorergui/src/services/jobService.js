@@ -57,6 +57,20 @@ export default class JobService {
         })
             .then(response => response.data);
 
+    //Remove liked job, needs Authenticaton
+    removeLikedJob = (jobId, token) =>
+        axios.patch(baseURL + "/api/like/" + jobId + "/",
+            //data
+            null,
+            //headers
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Token " + token
+                }
+            })
+            .then(response => response.data);
+
     //Dislike the job, needs Authentication
     dislikeJob = (jobId, token) =>
         axios.post(baseURL + "/api/dislike/",
@@ -84,6 +98,20 @@ export default class JobService {
         })
             .then(response => response.data);
 
+    //Remove disliked job, needs Authenticaton
+    removeDislikedJob = (jobId, token) =>
+        axios.patch(baseURL + "/api/dislike/" + jobId + "/",
+            //data
+            null,
+            //headers
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Token " + token
+                }
+            })
+            .then(response => response.data);
+
     //Bookmark the job, needs Authentication
     bookmarkJob = (jobId, token) =>
         axios.post(baseURL + "/api/bookmark/",
@@ -108,5 +136,19 @@ export default class JobService {
                 "Authorization": "Token " + token
             }
         })
+            .then(response => response.data);
+
+    //Remove bookmarked job, needs Authenticaton
+    unbookmarkJob = (jobId, token) =>
+        axios.patch(baseURL + "/api/bookmark/" + jobId + "/",
+            //data
+            null,
+            //headers
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Token " + token
+                }
+            })
             .then(response => response.data);
 }

@@ -9,7 +9,7 @@ const stateToPropertyMapper = state => ({
 
 const dispatcherToPropsMapper = dispatch => ({
     getJobsDisliked: token => actions.getJobsDisliked(dispatch, token),
-    likeJob: (jobId, token) => actions.likeJob(dispatch, jobId, token)
+    remove: (jobId, token) => actions.removeDislikedJob(dispatch, jobId, token)
 });
 
 const JobDislikeContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)

@@ -133,11 +133,17 @@ export const getJobDetails = (dispatch, jobId) => {
 export const likeJob = (dispatch, jobId, token) =>
 
     jobService.likeJob(jobId, token)
-        .then(() =>
+        .then(() => {
             dispatch({
                 type: constants.SET_LIKE_JOB_ALERT,
                 message: "Liked the job!"
-            }))
+            });
+
+            dispatch({
+                type: constants.JOB_LIKED,
+                isLiked: true
+            })
+        })
         .catch(() =>
             dispatch({
                 type: constants.SET_ALREADY_LIKED_JOB_ALERT,
@@ -153,29 +159,51 @@ export const getJobsLiked = (dispatch, token) =>
             dispatch({
                 type: constants.GET_JOBS_LIKED,
                 jobsLiked: jobs
-            })
-        )
+            }));
 
+/**
+ * METHOD TO REMOVE LIKED JOB FROM LIST
+ * @param dispatch 
+ * @param token 
+ */
+export const removeLikedJob = (dispatch, jobId, token) =>
+    jobService.removeLikedJob(jobId, token)
+        .then(jobs => {
+
+            dispatch({
+                type: constants.REMOVED_LIKED_JOB_FROM_LIST_ALERT,
+                message: "Removed liked job from list"
+            });
+
+            return getJobsLiked(dispatch, token);
+        })
+        .catch(() =>
+            dispatch({
+                type: constants.SET_CANNOT_REMOVE_LIKED_JOB_ALERT,
+                message: "You cannot unlike this job!"
+            }));
 
 /**
  * DISLIKE A JOB
  */
-export const dislikeJob = (dispatch, jobId, token) => {
+export const dislikeJob = (dispatch, jobId, token) =>
     jobService.dislikeJob(jobId, token)
-        .then(() =>
+        .then(() => {
             dispatch({
                 type: constants.SET_DISLIKE_JOB_ALERT,
                 message: "Disliked the job!"
-            }))
+            });
+
+            dispatch({
+                type: constants.JOB_DISLIKED,
+                isDisliked: true
+            })
+        })
         .catch(() =>
             dispatch({
                 type: constants.SET_ALREADY_DISLIKED_JOB_ALERT,
                 message: "You already dislike this job!"
             }));
-
-
-    return getJobsLiked(dispatch);
-}
 
 /**
  * METHOD TO GET JOBS DISLIKED
@@ -190,37 +218,48 @@ export const getJobsDisliked = (dispatch, token) =>
         );
 
 /**
+ * METHOD TO REMOVE LIKED JOB FROM LIST
+ * @param dispatch 
+ * @param token 
+ */
+export const removeDislikedJob = (dispatch, jobId, token) =>
+    jobService.removeDislikedJob(jobId, token)
+        .then(jobs => {
+
+            dispatch({
+                type: constants.REMOVED_DISLIKED_JOB_FROM_LIST_ALERT,
+                message: "Removed disliked job from list"
+            });
+
+            return getJobsDisliked(dispatch, token);
+
+        })
+        .catch(() =>
+            dispatch({
+                type: constants.SET_CANNOT_REMOVE_DISLIKED_JOB_ALERT,
+                message: "You cannot un-dislike this job!"
+            }));
+/**
  * METHOD TO BOOKMARK A JOB
  */
 export const bookmarkJob = (dispatch, jobId, token) =>
 
     jobService.bookmarkJob(jobId, token)
-        .then(() =>
+        .then(() => {
             dispatch({
                 type: constants.SET_BOOKMARK_JOB_ALERT,
                 message: "Bookmarked the job!"
-            }))
+            });
+
+            dispatch({
+                type: constants.JOB_BOOKMARKED,
+                isBookmarked: true
+            })
+        })
         .catch(() =>
             dispatch({
                 type: constants.SET_ALREADY_BOOKMARKED_JOB_ALERT,
                 message: "You already have bookmarked this job!"
-            }));
-
-/**
- * METHOD TO UNBOOKMARK A JOB
- */
-export const unbookmarkJob = (dispatch, jobId, token) =>
-
-    jobService.unbookmarkJob(jobId, token)
-        .then(() =>
-            dispatch({
-                type: constants.SET_UNBOOKMARK_JOB_ALERT,
-                message: "Un-bookmarked the job!"
-            }))
-        .catch(() =>
-            dispatch({
-                type: constants.SET_CANNOT_BOOKMARK_JOB_ALERT,
-                message: "You cannot unbookmark a job without first bookmarking it!"
             }));
 
 /**
@@ -234,6 +273,28 @@ export const getJobsBookmarked = (dispatch, token) =>
                 jobsBookmarked: jobs
             })
         );
+
+/**
+ * METHOD TO UNBOOKMARK A JOB
+ */
+export const unbookmarkJob = (dispatch, jobId, token) =>
+
+    jobService.unbookmarkJob(jobId, token)
+        .then(jobs => {
+
+            dispatch({
+                type: constants.REMOVED_BOOKMARKED_JOB_FROM_LIST_ALERT,
+                message: "Un-bookmarked the job"
+            });
+
+            return getJobsBookmarked(dispatch, token);
+
+        })
+        .catch(() =>
+            dispatch({
+                type: constants.SET_CANNOT_BOOKMARK_JOB_ALERT,
+                message: "You cannot unbookmark a job without first bookmarking it!"
+            }));
 
 /**
  * METHOD TO SET JOBS LIKED PILL ACTIVE

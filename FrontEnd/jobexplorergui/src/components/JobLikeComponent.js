@@ -19,7 +19,8 @@ export default class JobLikeComponent extends React.Component {
                         <JobListCardComponent
                             className="col-2"
                             getJobDetails={this.props.getJobDetails}
-                            dislikeJob={this.props.dislikeJob}
+                            remove={this.props.remove}
+                            token={this.props.token}
                             job={job}
                             key={job.id} />)
                 }

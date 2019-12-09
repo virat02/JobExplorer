@@ -27,7 +27,6 @@ export default class JobDetailsComponent extends React.Component {
                     {
                         this.props.isAuthenticated &&
 
-                        // TODO: Grayscale button if bookmarked already
                         <Button
                             onClick={() => this.props.bookmarkJob(this.props.job.id,
                                 this.props.token)}>
@@ -36,7 +35,7 @@ export default class JobDetailsComponent extends React.Component {
                     }
                     {
                         this.props.isAuthenticated &&
-                        // TODO: Grayscale button if liked already
+
                         <Button
                             onClick={() => this.props.likeJob(this.props.job.id,
                                 this.props.token)}>
@@ -46,7 +45,7 @@ export default class JobDetailsComponent extends React.Component {
 
                     {
                         this.props.isAuthenticated &&
-                        // TODO: Grayscale button if disliked already
+
                         <Button
                             onClick={() => this.props.dislikeJob(this.props.job.id,
                                 this.props.token)}>

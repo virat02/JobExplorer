@@ -23,7 +23,7 @@ export default class JobListComponent extends React.Component {
                             getJobDetails={this.props.getJobDetails}
                             job={job}
                             dislikeJob={this.props.dislikeJob}
-                            currentUsername={this.props.match.params.username}
+                            token={this.props.token}
                             key={job.jobId} />)
                 }
             </div>

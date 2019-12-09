@@ -7,7 +7,8 @@ const stateToPropertyMapper = state => ({
     isAuthenticated: state.AuthReducer.token !== null ? true : false,
     job: state.JobReducer.job,
     isLiked: state.JobReducer.isLiked,
-    isBookmarked: state.JobReducer.isBookmarked
+    isBookmarked: state.JobReducer.isBookmarked,
+    isDisliked: state.JobReducer.isDisliked
 });
 
 const dispatcherToPropsMapper = dispatch => ({

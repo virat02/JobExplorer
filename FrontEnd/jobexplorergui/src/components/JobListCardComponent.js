@@ -25,9 +25,9 @@ export default class JobListCardComponent extends React.Component {
                         <div className="remove-button">
                             <button className="btn btn-danger"
                                 onClick={() => this.props
-                                    .dislikeJob(this.props.job.id,
-                                        this.props.currentUsername)}>
-                                Dislike
+                                    .remove(this.props.job.id,
+                                        this.props.token)}>
+                                Remove
                             </button>
                         </div>
                     }
