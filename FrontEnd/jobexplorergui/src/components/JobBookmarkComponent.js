@@ -8,7 +8,7 @@ export default class JobLikeComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getJobsBookmarked();
+        this.props.getJobsBookmarked(this.props.token);
     }
 
     render() {

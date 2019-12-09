@@ -3,12 +3,13 @@ import JobLikeComponent from "../components/JobLikeComponent";
 import * as actions from "../actions";
 
 const stateToPropertyMapper = state => ({
-    jobsLiked: state.JobsReducer.jobsLiked,
+    token: state.AuthReducer.token,
+    jobsLiked: state.JobReducer.jobsLiked,
 });
 
 const dispatcherToPropsMapper = dispatch => ({
-    getJobsLiked: () => actions.getJobsLiked(dispatch),
-    dislikeJob: (jobId) => actions.dislikeJob(dispatch, jobId)
+    getJobsLiked: token => actions.getJobsLiked(dispatch, token),
+    dislikeJob: (jobId, token) => actions.dislikeJob(dispatch, jobId, token)
 });
 
 const JobLikeContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)

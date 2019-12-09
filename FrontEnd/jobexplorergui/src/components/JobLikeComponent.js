@@ -8,7 +8,7 @@ export default class JobLikeComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getJobsLiked(this.props.match.params.username);
+        this.props.getJobsLiked(this.props.token);
     }
 
     render() {
@@ -21,7 +21,6 @@ export default class JobLikeComponent extends React.Component {
                             getJobDetails={this.props.getJobDetails}
                             dislikeJob={this.props.dislikeJob}
                             job={job}
-                            currentUsername={this.props.match.params.username}
                             key={job.id} />)
                 }
             </div>

@@ -25,7 +25,7 @@ export default class Routes extends Component {
                     <Route exact path={"/register"} component={RegisterContainer} />
                     <Route exact path={"/jobs"} component={JobSearchContainer} />
                     <Route exact path={"/job/:jobId"} component={JobDetailsContainer} />
-                    <Route exact path={"/profile"} component={UserProfileContainer} />
+                    <Route path={"/profile"} component={UserProfileContainer} />
                 </div>
                 <FooterContainer />
             </div>

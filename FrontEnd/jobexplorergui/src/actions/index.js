@@ -130,9 +130,9 @@ export const getJobDetails = (dispatch, jobId) => {
 /**
  * METHOD TO LIKE A JOB
  */
-export const likeJob = (dispatch, jobId, username) =>
+export const likeJob = (dispatch, jobId, token) =>
 
-    jobService.likeJob(jobId, username)
+    jobService.likeJob(jobId, token)
         .then(() =>
             dispatch({
                 type: constants.SET_LIKE_JOB_ALERT,
@@ -147,21 +147,21 @@ export const likeJob = (dispatch, jobId, username) =>
 /**
  * METHOD TO GET JOBS LIKED
  */
-export const getJobsLiked = dispatch => {
-    jobService.getJobsLiked()
-        .then(jobsLiked =>
+export const getJobsLiked = (dispatch, token) =>
+    jobService.getJobsLiked(token)
+        .then(jobs =>
             dispatch({
                 type: constants.GET_JOBS_LIKED,
-                jobsLiked: jobsLiked
+                jobsLiked: jobs
             })
         )
-};
+
 
 /**
  * DISLIKE A JOB
  */
-export const dislikeJob = (dispatch, jobId) => {
-    jobService.dislikeJob(jobId)
+export const dislikeJob = (dispatch, jobId, token) => {
+    jobService.dislikeJob(jobId, token)
         .then(() =>
             dispatch({
                 type: constants.SET_DISLIKE_JOB_ALERT,
@@ -180,22 +180,21 @@ export const dislikeJob = (dispatch, jobId) => {
 /**
  * METHOD TO GET JOBS DISLIKED
  */
-export const getJobsDisliked = dispatch => {
-    jobService.getJobsDisliked()
-        .then(jobsDisliked =>
+export const getJobsDisliked = (dispatch, token) =>
+    jobService.getJobsDisliked(token)
+        .then(jobs =>
             dispatch({
                 type: constants.GET_JOBS_DISLIKED,
-                jobsDisliked: jobsDisliked
+                jobsDisliked: jobs
             })
-        )
-};
+        );
 
 /**
  * METHOD TO BOOKMARK A JOB
  */
-export const bookmarkJob = (dispatch, jobId, username) =>
+export const bookmarkJob = (dispatch, jobId, token) =>
 
-    jobService.bookmarkJob(jobId, username)
+    jobService.bookmarkJob(jobId, token)
         .then(() =>
             dispatch({
                 type: constants.SET_BOOKMARK_JOB_ALERT,
@@ -210,9 +209,9 @@ export const bookmarkJob = (dispatch, jobId, username) =>
 /**
  * METHOD TO UNBOOKMARK A JOB
  */
-export const unbookmarkJob = (dispatch, jobId) =>
+export const unbookmarkJob = (dispatch, jobId, token) =>
 
-    jobService.unbookmarkJob(jobId)
+    jobService.unbookmarkJob(jobId, token)
         .then(() =>
             dispatch({
                 type: constants.SET_UNBOOKMARK_JOB_ALERT,
@@ -227,15 +226,14 @@ export const unbookmarkJob = (dispatch, jobId) =>
 /**
  * METHOD TO GET JOBS BOOKMARKED
  */
-export const getJobsBookmarked = dispatch => {
-    jobService.getJobsBookmarked()
-        .then(jobsBookmarked =>
+export const getJobsBookmarked = (dispatch, token) =>
+    jobService.getJobsBookmarked(token)
+        .then(jobs =>
             dispatch({
                 type: constants.GET_JOBS_BOOKMARKED,
-                jobsBookmarked: jobsBookmarked
+                jobsBookmarked: jobs
             })
-        )
-};
+        );
 
 /**
  * METHOD TO SET JOBS LIKED PILL ACTIVE
@@ -263,3 +261,11 @@ export const activateJobsBookmarkedPill = dispatch =>
         type: constants.ACTIVATE_JOBS_BOOKMARKED_PILL,
         jobsBookmarkedPill: true
     });
+
+export const deactivateAllPills = dispatch =>
+    dispatch({
+        type: constants.DEACTIVATE_ALL_PILLS,
+        jobsLikedPill: false,
+        jobsDislikedPill: false,
+        jobsBookmarkedPill: false
+    })

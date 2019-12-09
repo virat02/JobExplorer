@@ -6,7 +6,10 @@ const JobReducer = (state = {
     searchText: '',
     job: '',
     isLiked: '',
-    isBookmarked: ''
+    isBookmarked: '',
+    jobsLiked: [],
+    jobsDisliked: [],
+    jobsBookmarked: []
 }, action) => {
     switch (action.type) {
 
@@ -30,6 +33,15 @@ const JobReducer = (state = {
 
         case constants.JOB_DISLIKED:
             return { ...state, isLiked: action.isLiked };
+
+        case constants.GET_JOBS_LIKED:
+            return { ...state, jobsLiked: action.jobsLiked };
+
+        case constants.GET_JOBS_DISLIKED:
+            return { ...state, jobsDisliked: action.jobsDisliked };
+
+        case constants.GET_JOBS_BOOKMARKED:
+            return { ...state, jobsBookmarked: action.jobsBookmarked };
 
         default:
             return state;

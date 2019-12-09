@@ -3,12 +3,13 @@ import JobBookmarkComponent from "../components/JobBookmarkComponent";
 import * as actions from "../actions";
 
 const stateToPropertyMapper = state => ({
-    jobsBookmarked: state.JobsReducer.jobsBookmarked,
+    token: state.AuthReducer.token,
+    jobsBookmarked: state.JobReducer.jobsBookmarked,
 });
 
 const dispatcherToPropsMapper = dispatch => ({
-    getJobsBookmarked: () => actions.getJobsBookmarked(dispatch),
-    unbookmarkJob: (jobId) => actions.unbookmarkJob(dispatch, jobId)
+    getJobsBookmarked: token => actions.getJobsBookmarked(dispatch, token),
+    unbookmarkJob: (jobId, token) => actions.unbookmarkJob(dispatch, jobId, token)
 });
 
 const JobBookmarkContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)

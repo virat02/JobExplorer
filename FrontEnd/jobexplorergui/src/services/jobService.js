@@ -22,7 +22,7 @@ export default class JobService {
                 location: location
             }
         })
-            .then(response => response.data);
+            .then((response) => response.data);
 
 
 
@@ -32,21 +32,81 @@ export default class JobService {
             .then(response => response.data);
 
     //Like a job, needs Authentication
-    likeJob = (jobId, username) => {
-        axios.defaults.headers = {
-            "Content-Type": "application/json",
-            Authorization: this.props.token
-        }
-        axios.post(baseURL + "/api/like/user/" + username + "/job/" + jobId);
-    };
+    likeJob = (jobId, token) =>
+        axios.post(baseURL + "/api/like/",
+            //data
+            {
+                job: jobId
+            },
+            //headers
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Token " + token
+                }
+            })
+            .then(response => response.data);
+
+    //Get Liked Jobs, needs Authentication
+    getJobsLiked = token =>
+        axios.get(baseURL + "/api/likedJobs/", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Token " + token
+            }
+        })
+            .then(response => response.data);
 
     //Dislike the job, needs Authentication
-    dislikeJob = (jobId, username) => {
-        axios.defaults.headers = {
-            "Content-Type": "application/json",
-            Authorization: this.props.token
-        }
+    dislikeJob = (jobId, token) =>
+        axios.post(baseURL + "/api/dislike/",
+            //data
+            {
+                job: jobId
+            },
+            //headers
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Token " + token
+                }
+            })
+            .then(response => response.data);
 
-        axios.delete(baseURL + "/api/like/user/" + username + "/job/" + jobId);
-    };
+
+    //Get Disliked Jobs, needs Authentication
+    getJobsDisliked = token =>
+        axios.get(baseURL + "/api/dislikedJobs/", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Token " + token
+            }
+        })
+            .then(response => response.data);
+
+    //Bookmark the job, needs Authentication
+    bookmarkJob = (jobId, token) =>
+        axios.post(baseURL + "/api/bookmark/",
+            //data
+            {
+                job: jobId
+            },
+            //headers
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Token " + token
+                }
+            })
+            .then(response => response.data);
+
+    //Get Bookmarked Jobs, needs Authentication
+    getJobsBookmarked = token =>
+        axios.get(baseURL + "/api/bookmarkedJobs/", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Token " + token
+            }
+        })
+            .then(response => response.data);
 }

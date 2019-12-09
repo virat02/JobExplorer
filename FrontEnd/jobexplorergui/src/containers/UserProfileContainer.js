@@ -4,14 +4,15 @@ import * as actions from "../actions";
 
 const stateToPropertyMapper = state => ({
     jobsLikedPill: state.PillReducer.jobsLikedPill,
-    jobsDisLikedPill: state.PillReducer.jobsDisLikedPill,
+    jobsDislikedPill: state.PillReducer.jobsDislikedPill,
     jobsBookmarkedPill: state.PillReducer.jobsBookmarkedPill
 });
 
 export const dispatcherToPropsMapper = dispatch => ({
     activateJobsLikedPill: () => actions.activateJobsLikedPill(dispatch),
     activateJobsDislikedPill: () => actions.activateJobsDislikedPill(dispatch),
-    activateJobsBookmarkedPill: () => actions.activateJobsBookmarkedPill(dispatch)
+    activateJobsBookmarkedPill: () => actions.activateJobsBookmarkedPill(dispatch),
+    deactivateAllPills: () => actions.deactivateAllPills(dispatch)
 });
 
 const UserProfileContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)

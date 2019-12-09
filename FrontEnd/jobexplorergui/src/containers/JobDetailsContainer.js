@@ -3,18 +3,18 @@ import * as actions from "../actions";
 import JobDetailsComponent from "../components/JobDetailsComponent";
 
 const stateToPropertyMapper = state => ({
-    job: state.JobReducer.job,
     token: state.AuthReducer.token,
     isAuthenticated: state.AuthReducer.token !== null ? true : false,
+    job: state.JobReducer.job,
     isLiked: state.JobReducer.isLiked,
     isBookmarked: state.JobReducer.isBookmarked
 });
 
 const dispatcherToPropsMapper = dispatch => ({
     getJobDetails: id => actions.getJobDetails(dispatch, id),
-    likeJob: (jobId, username) => actions.likeJob(dispatch, jobId, username),
-    dislikeJob: (jobId, username) => actions.likeJob(dispatch, jobId, username),
-    bookmarkJob: (jobId, username) => actions.bookmarkJob(dispatch, jobId, username),
+    likeJob: (jobId, token) => actions.likeJob(dispatch, jobId, token),
+    dislikeJob: (jobId, token) => actions.dislikeJob(dispatch, jobId, token),
+    bookmarkJob: (jobId, token) => actions.bookmarkJob(dispatch, jobId, token),
 });
 
 const JobDetailsContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)
