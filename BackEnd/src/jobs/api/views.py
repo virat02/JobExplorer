@@ -4,6 +4,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.exceptions import APIException
 
 from jobs.models import Job, CustomUser, Company, Likes
 from .serializers import (JobSerializer, UserSerializer,
@@ -40,6 +41,9 @@ class LikeViewSet(viewsets.ModelViewSet):
     def create(self, request):
         serializer = LikeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        user = CustomUser.objects.get(id=self.request.user.id)
+        if user.liked_jobs.filter(id=request.data["job"]).exists():
+            raise APIException("Job already liked!")
         serializer.save(user=request.user)
         return Response(status=status.HTTP_201_CREATED)
 
