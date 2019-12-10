@@ -20,6 +20,13 @@
     background-color: black !important;
 }
 
-.container {
-    margin-top: 0px !important;
+.register-input {
+    height: 40px;
+    width: 400px;
+    border-radius: 5px;
+}
+
+.register-form {
+    max-width: 600px;
+    padding-top:40px;
 }

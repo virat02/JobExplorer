@@ -25,7 +25,7 @@ class LoginForm extends Component {
         }
         const { getFieldDecorator } = this.props.form;
         return (
-            <div>
+            <div className="row justify-content-center">
                 {errorMessage}
                 {
                     this.props.loading ?
@@ -39,7 +39,7 @@ class LoginForm extends Component {
                                 {getFieldDecorator('username', {
                                     rules: [{ required: true, message: 'Please input your username!' }],
                                 })(
-                                    <Input
+                                    <Input className="login-input"
                                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder="Username"
                                     />,
@@ -50,7 +50,7 @@ class LoginForm extends Component {
                                 {getFieldDecorator('password', {
                                     rules: [{ required: true, message: 'Please input your Password!' }],
                                 })(
-                                    <Input
+                                    <Input className="login-input"
                                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         type="password"
                                         placeholder="Password"
@@ -59,13 +59,14 @@ class LoginForm extends Component {
                             </FormItem>
 
                             <FormItem>
-                                <Button type="primary" htmlType="submit" style={{ marginRight: '10px' }}>
+                                <Button type="btn btn-success job-button" htmlType="submit" style={{ marginRight: '10px' }}>
                                     Login
                                 </Button>
-                                Or
-                                <NavLink
-                                    style={{ marginRight: '10px' }}
-                                    to='/register'> SignUp
+
+                                <NavLink to='/register'>
+                                    <Button type="btn btn-success job-button" style={{ marginRight: '10px' }}>
+                                        SignUp
+                                    </Button>
                                 </NavLink>
                             </FormItem>
                         </Form>

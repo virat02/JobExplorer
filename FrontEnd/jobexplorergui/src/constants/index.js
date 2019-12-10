@@ -7,15 +7,18 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 /**
+ * Search bar
+ */
+export const SEARCH_JOB_START_LOADING = 'SEARCH_JOB_START_LOADING';
+export const SEARCH_JOB_STOP_LOADING = 'SEARCH_JOB_STOP_LOADING';
+
+/**
  * Job
  */
 export const SEARCH_JOB = 'SEARCH_JOB';
 export const LOCATION_TEXT_CHANGED = 'LOCATION_TEXT_CHANGED';
 export const SEARCH_TEXT_CHANGED = 'SEARCH_TEXT_CHANGED';
 export const JOB_DETAILS = 'JOB_DETAILS';
-export const JOB_LIKED = 'JOB_LIKED';
-export const JOB_BOOKMARKED = 'JOB_BOOKMARKED';
-export const JOB_DISLIKED = 'JOB_DISLIKED';
 
 /**
  * PILLS

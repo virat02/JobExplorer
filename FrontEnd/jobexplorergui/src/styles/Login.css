@@ -1,9 +1,28 @@
 .login-form {
-  max-width: 300px;
+  max-width: 600px;
+  position: fixed;
+  top: 200px;
 }
+
 .login-form-forgot {
   float: right;
 }
+
 .login-form-button {
   width: 100%;
+}
+
+.login-div {
+  position: absolute;
+  left: 600px;
+}
+
+.login-input {
+  height: 55px;
+  width: 400px;
+  border-radius: 5px;
+}
+
+.job-button {
+  width: 200px;
 }

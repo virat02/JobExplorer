@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { Button } from 'antd';
 
 export default class JobListCardComponent extends React.Component {
 
@@ -8,29 +9,30 @@ export default class JobListCardComponent extends React.Component {
     }
 
     render() {
+
         return (
-            <div className="col-md-4">
-                <div className="job-card">
-                    {/* <img className="job-card-image"
-                         src={this.props.job.posterUrl}
-                         alt="Company Poster."/> */}
-                    <div className="button">
+            <div className="col-sm-4">
+                <div className="card job-card" >
+                    <div className="card-body">
+                        <h5 className="card-title">{this.props.job.title}</h5>
                         <Link to={`/job/${this.props.job.id}`}>
-                            Job details
+                            <Button className="card-link"
+                                style={{ marginRight: '2px' }}>
+                                Job Details
+                            </Button>
                         </Link>
-                    </div>
-                    {
-                        // (this.props.currentUsername === localStorage.getItem("username")
-                        //     || localStorage.getItem("userRole") === "Admin") &&
-                        <div className="remove-button">
-                            <button className="btn btn-danger"
+
+                        {
+                            this.props.isAuthenticated &&
+                            <Button type="danger"
+                                style={{ marginRight: '10px' }}
                                 onClick={() => this.props
                                     .remove(this.props.job.id,
                                         this.props.token)}>
                                 Remove
-                            </button>
-                        </div>
-                    }
+                            </Button>
+                        }
+                    </div>
                 </div>
             </div>
         );

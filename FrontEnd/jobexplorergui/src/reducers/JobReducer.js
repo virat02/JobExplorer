@@ -1,17 +1,16 @@
 import * as constants from '../constants'
 
-const JobReducer = (state = {
+const defaultState = {
     jobs: [],
     locationText: '',
     searchText: '',
     job: '',
-    isLiked: '',
-    isDisliked: '',
-    isBookmarked: '',
     jobsLiked: [],
     jobsDisliked: [],
     jobsBookmarked: []
-}, action) => {
+}
+
+const JobReducer = (state = defaultState, action) => {
     switch (action.type) {
 
         case constants.LOCATION_TEXT_CHANGED:
@@ -25,15 +24,6 @@ const JobReducer = (state = {
 
         case constants.SEARCH_TEXT_CHANGED:
             return { ...state, searchText: action.searchText };
-
-        case constants.JOB_LIKED:
-            return { ...state, isLiked: action.isLiked };
-
-        case constants.JOB_BOOKMARKED:
-            return { ...state, isBookmarked: action.isBookmarked };
-
-        case constants.JOB_DISLIKED:
-            return { ...state, isLiked: action.isDisliked };
 
         case constants.GET_JOBS_LIKED:
             return { ...state, jobsLiked: action.jobsLiked };

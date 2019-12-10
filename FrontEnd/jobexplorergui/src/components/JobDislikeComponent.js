@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import JobListCardComponent from "./JobListCardComponent";
 
-export default class JobLikeComponent extends React.Component {
+export default class JobLikeComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -21,6 +21,7 @@ export default class JobLikeComponent extends React.Component {
                             getJobDetails={this.props.getJobDetails}
                             remove={this.props.remove}
                             token={this.props.token}
+                            isAuthenticated={this.props.isAuthenticated}
                             job={job}
                             key={job.id} />)
                 }

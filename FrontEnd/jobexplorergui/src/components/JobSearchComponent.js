@@ -1,6 +1,9 @@
 import React from 'react';
+import { Icon, Spin } from 'antd';
 import JobSearchCardComponent from "./JobSearchCardComponent";
 import "../styles/jobCard.css";
+
+const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 export default class JobSearchComponent extends React.Component {
 
@@ -8,7 +11,7 @@ export default class JobSearchComponent extends React.Component {
         super(props);
     }
 
-    render() {
+    renderCards() {
         return (
             <div className="row">
                 {
@@ -21,10 +24,26 @@ export default class JobSearchComponent extends React.Component {
                                 job={job}
                                 key={job.id} />)
                         :
-                        <h3>No Jobs found matching your criteria, search again!</h3>
+                        <div className="container-fluid row">
+                            <h3>No Jobs found matching your criteria, search again!</h3>
+                        </div>
+                }
+            </div>
+        );
+    }
+
+    render() {
+        return (
+            <div className="container-fluid">
+                {
+                    this.props.isLoading ?
+                        <Spin indicator={antIcon} />
+                        :
+                        this.renderCards()
                 }
             </div>
         );
     }
 }
+
 

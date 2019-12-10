@@ -4,6 +4,7 @@ import * as actions from "../actions";
 
 const stateToPropertyMapper = state => ({
     token: state.AuthReducer.token,
+    isAuthenticated: state.AuthReducer.token !== null ? true : false,
     jobsBookmarked: state.JobReducer.jobsBookmarked,
 });
 

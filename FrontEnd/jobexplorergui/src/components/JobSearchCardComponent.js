@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 
 export default class JobSearchCardComponent extends React.Component {
 
@@ -9,15 +10,14 @@ export default class JobSearchCardComponent extends React.Component {
 
     render() {
         return (
-            <div className="col-md-4">
-                <div className="job-card">
-                    {/* <img className="job-card-image"
-                        src={this.props.job.company_url}
-                        alt="Company Poster." /> */}
-                    <div>{this.props.job.title}</div>
-                    <div className="button">
+            <div className="col-sm-4">
+                <div className="card job-card" >
+                    <div className="card-body">
+                        <h5 className="card-title">{this.props.job.title}</h5>
                         <Link to={`/job/${this.props.job.id}`}>
-                            Job details
+                            <Button className="card-link">
+                                Job Details
+                            </Button>
                         </Link>
                     </div>
                 </div>

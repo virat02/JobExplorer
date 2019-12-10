@@ -90,12 +90,23 @@ export const searchJobs = (dispatch, newSearchText, language, jobType, isSponsor
 
     jobService.searchJobs(newSearchText.length !== 0 ? '?search=' + newSearchText : '',
         language, jobType, isSponsorshipAvailable, location)
-        .then(jobs =>
+        .then(jobs => {
+
+            dispatch({
+                type: constants.SEARCH_JOB_START_LOADING,
+                isLoading: true
+            });
+
             dispatch({
                 type: constants.SEARCH_JOB,
                 jobs: jobs
-            })
-        )
+            });
+
+            dispatch({
+                type: constants.SEARCH_JOB_STOP_LOADING,
+                isLoading: false
+            });
+        })
 };
 
 /**
@@ -133,17 +144,11 @@ export const getJobDetails = (dispatch, jobId) => {
 export const likeJob = (dispatch, jobId, token) =>
 
     jobService.likeJob(jobId, token)
-        .then(() => {
+        .then(() =>
             dispatch({
                 type: constants.SET_LIKE_JOB_ALERT,
                 message: "Liked the job!"
-            });
-
-            dispatch({
-                type: constants.JOB_LIKED,
-                isLiked: true
-            })
-        })
+            }))
         .catch(() =>
             dispatch({
                 type: constants.SET_ALREADY_LIKED_JOB_ALERT,
@@ -168,7 +173,7 @@ export const getJobsLiked = (dispatch, token) =>
  */
 export const removeLikedJob = (dispatch, jobId, token) =>
     jobService.removeLikedJob(jobId, token)
-        .then(jobs => {
+        .then(() => {
 
             dispatch({
                 type: constants.REMOVED_LIKED_JOB_FROM_LIST_ALERT,
@@ -189,17 +194,11 @@ export const removeLikedJob = (dispatch, jobId, token) =>
  */
 export const dislikeJob = (dispatch, jobId, token) =>
     jobService.dislikeJob(jobId, token)
-        .then(() => {
+        .then(() =>
             dispatch({
                 type: constants.SET_DISLIKE_JOB_ALERT,
                 message: "Disliked the job!"
-            });
-
-            dispatch({
-                type: constants.JOB_DISLIKED,
-                isDisliked: true
-            })
-        })
+            }))
         .catch(() =>
             dispatch({
                 type: constants.SET_ALREADY_DISLIKED_JOB_ALERT,
@@ -225,7 +224,7 @@ export const getJobsDisliked = (dispatch, token) =>
  */
 export const removeDislikedJob = (dispatch, jobId, token) =>
     jobService.removeDislikedJob(jobId, token)
-        .then(jobs => {
+        .then(() => {
 
             dispatch({
                 type: constants.REMOVED_DISLIKED_JOB_FROM_LIST_ALERT,
@@ -234,7 +233,6 @@ export const removeDislikedJob = (dispatch, jobId, token) =>
 
             //refresh the disliked list
             return getJobsDisliked(dispatch, token);
-
         })
         .catch(() =>
             dispatch({
@@ -247,17 +245,11 @@ export const removeDislikedJob = (dispatch, jobId, token) =>
 export const bookmarkJob = (dispatch, jobId, token) =>
 
     jobService.bookmarkJob(jobId, token)
-        .then(() => {
+        .then(() =>
             dispatch({
                 type: constants.SET_BOOKMARK_JOB_ALERT,
                 message: "Bookmarked the job!"
-            });
-
-            dispatch({
-                type: constants.JOB_BOOKMARKED,
-                isBookmarked: true
-            })
-        })
+            }))
         .catch(() =>
             dispatch({
                 type: constants.SET_ALREADY_BOOKMARKED_JOB_ALERT,
@@ -282,7 +274,7 @@ export const getJobsBookmarked = (dispatch, token) =>
 export const unbookmarkJob = (dispatch, jobId, token) =>
 
     jobService.unbookmarkJob(jobId, token)
-        .then(jobs => {
+        .then(() => {
 
             dispatch({
                 type: constants.REMOVED_BOOKMARKED_JOB_FROM_LIST_ALERT,
@@ -291,7 +283,6 @@ export const unbookmarkJob = (dispatch, jobId, token) =>
 
             //refresh the bookmarked list 
             return getJobsBookmarked(dispatch, token);
-
         })
         .catch(() =>
             dispatch({

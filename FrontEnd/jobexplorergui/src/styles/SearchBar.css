@@ -1,0 +1,32 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.searchbar {
+     position: fixed;
+     top:72px;
+     z-index:2;
+     display: inline-block;
+     background-color: #cce0cc;
+     height:66px;
+     padding-top:15px;
+}
+
+.col {
+ background-color: #cce0cc;
+}
+
+.wbdv-search-bar{
+    display: inline;
+    vertical-align: center;
+    width: 100% !important;
+    margin-right: auto;
+}
+
+.checkbox-center{
+    vertical-align: center;
+    text-align: center;
+}

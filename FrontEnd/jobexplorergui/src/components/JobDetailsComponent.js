@@ -2,6 +2,7 @@ import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import "../styles/jobCard.css";
 import "../styles/jobDetails.css";
+import "../styles/HomeComponent.css";
 import { Button } from 'antd';
 
 export default class JobDetailsComponent extends React.Component {
@@ -20,10 +21,17 @@ export default class JobDetailsComponent extends React.Component {
 
                 <div className="row">
                     <h3>Job Description</h3>
-                    <div> {ReactHtmlParser(this.props.job.description)} </div>
-                    <h3>How To Apply</h3>
-                    <div> {ReactHtmlParser(this.props.job.how_to_apply)} </div>
+                </div>
+                <div className="row">{ReactHtmlParser(this.props.job.description)} </div>
 
+
+                <div className="row">
+                    <h3>How To Apply</h3>
+                </div>
+                <div className="row">{ReactHtmlParser(this.props.job.how_to_apply)} </div>
+
+
+                <div>
                     {
                         this.props.isAuthenticated &&
 
@@ -31,7 +39,7 @@ export default class JobDetailsComponent extends React.Component {
                             onClick={() => this.props.bookmarkJob(this.props.job.id,
                                 this.props.token)}>
                             Bookmark
-                        </Button>
+                            </Button>
                     }
                     {
                         this.props.isAuthenticated &&
@@ -40,7 +48,7 @@ export default class JobDetailsComponent extends React.Component {
                             onClick={() => this.props.likeJob(this.props.job.id,
                                 this.props.token)}>
                             Like
-                        </Button>
+                            </Button>
                     }
 
                     {
@@ -50,11 +58,12 @@ export default class JobDetailsComponent extends React.Component {
                             onClick={() => this.props.dislikeJob(this.props.job.id,
                                 this.props.token)}>
                             Dislike
-                        </Button>
+                            </Button>
                     }
-
                 </div>
+
             </div>
+
         );
     }
 }

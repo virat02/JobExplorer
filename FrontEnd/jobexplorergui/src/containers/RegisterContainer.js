@@ -8,7 +8,6 @@ const stateToPropertyMapper = state => ({
 });
 
 export const dispatcherToPropsMapper = dispatch => ({
-
     doRegister: (username, email, password, password2) =>
         actions.register(dispatch, username, email, password, password2)
 });

@@ -21,6 +21,7 @@ export default class JobLikeComponent extends React.Component {
                             getJobDetails={this.props.getJobDetails}
                             remove={this.props.remove}
                             token={this.props.token}
+                            isAuthenticated={this.props.isAuthenticated}
                             job={job}
                             key={job.id} />)
                 }

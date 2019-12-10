@@ -1,0 +1,29 @@
+.wbdv-body{
+
+    padding-bottom: 5%;
+    min-height:100vh;
+    background-color: #cce0cc;
+    color: #eeeeee;
+    z-index:1;
+    position:absolute;
+    top: 127px;
+    display: inline-block;
+    width: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.parent {
+    position:relative;
+}
+
+.child {
+    position:absolute;
+    top: 127px;
+}

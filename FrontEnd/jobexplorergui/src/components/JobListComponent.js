@@ -8,10 +8,6 @@ export default class JobListComponent extends React.Component {
         super(props);
     }
 
-    componentDidMount() {
-        this.props.getJobsLiked(this.props.match.params.username);
-    }
-
     render() {
 
         return (
@@ -24,6 +20,7 @@ export default class JobListComponent extends React.Component {
                             job={job}
                             dislikeJob={this.props.dislikeJob}
                             token={this.props.token}
+                            isAuthenticated={this.props.isAuthenticated}
                             key={job.jobId} />)
                 }
             </div>

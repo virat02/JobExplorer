@@ -5,10 +5,7 @@ import JobDetailsComponent from "../components/JobDetailsComponent";
 const stateToPropertyMapper = state => ({
     token: state.AuthReducer.token,
     isAuthenticated: state.AuthReducer.token !== null ? true : false,
-    job: state.JobReducer.job,
-    isLiked: state.JobReducer.isLiked,
-    isBookmarked: state.JobReducer.isBookmarked,
-    isDisliked: state.JobReducer.isDisliked
+    job: state.JobReducer.job
 });
 
 const dispatcherToPropsMapper = dispatch => ({

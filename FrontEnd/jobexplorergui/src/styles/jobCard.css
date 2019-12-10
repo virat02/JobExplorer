@@ -1,13 +1,11 @@
 .job-card {
-    position: relative;
-    margin-top: 15px;
-    width: 300px;
-    height: 300px;
+    width: 100%;
 }
 
 .job-card:hover {
     display: inline-block;
     background: rgba(0, 0, 0, .3);
+    color: black;
 }
 
 img {
@@ -26,12 +24,13 @@ img {
     font-size: 30px;
     text-align: center;
     text-transform: uppercase;
-    color: white;
+    color: black;
     transition: top .5s ease;
 }
 
 .job-card:hover .title {
     top: 90px;
+    color: black;
 }
 
 .button {
@@ -104,9 +103,18 @@ img {
 .jobs-header {
     text-align: left;
     margin-top: 50px;
+    color: black;
 }
 
 .job-card-image:hover {
     --webkit-filter: blur(4px);
     filter: blur(4px);
+}
+
+.wbdv-body {
+    color: black;
+}
+
+.row {
+    margin-top: 20px;
 }

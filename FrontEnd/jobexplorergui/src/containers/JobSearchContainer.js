@@ -4,6 +4,7 @@ import JobSearchComponent from "../components/JobSearchComponent";
 
 const stateToPropertyMapper = state => ({
     jobs: state.JobReducer.jobs,
+    isLoading: state.SearchReducer.isLoading
 });
 
 const dispatcherToPropsMapper = dispatch => ({
