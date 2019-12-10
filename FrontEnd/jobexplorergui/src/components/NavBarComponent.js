@@ -37,9 +37,9 @@ export default class NavBarComponent extends Component {
     render() {
         return (
             <header className={"container-fluid"}>
-                <nav className={"navbar navbar-expand-md navbar-dark fixed-top row"}>
+                <nav className={"navbar navbar-expand-md navbar-bgcolor row"}>
                     <div className={"col-md-2"}>
-                        <a className={"navbar-brand"} href={"/"}>
+                        <a className={"navbar-brand wbdv-link"} href={"/"}>
                             <span>
                                 Find a Job
                             </span>

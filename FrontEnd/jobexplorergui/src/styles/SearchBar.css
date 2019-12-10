@@ -6,13 +6,11 @@
 }
 
 .searchbar {
-     position: fixed;
-     top:72px;
+     position: relative;
      z-index:2;
      display: inline-block;
      background-color: #cce0cc;
-     height:66px;
-     padding-top:15px;
+     height:75px;
 }
 
 .col {

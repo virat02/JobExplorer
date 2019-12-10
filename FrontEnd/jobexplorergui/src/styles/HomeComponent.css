@@ -5,8 +5,8 @@
     background-color: #cce0cc;
     color: #eeeeee;
     z-index:1;
-    position:absolute;
-    top: 127px;
+    position: relative;
+    /* top: 127px; */
     display: inline-block;
     width: 100%;
 }

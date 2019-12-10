@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import "../styles/jobCard.css";
-import "../styles/jobDetails.css";
 import "../styles/HomeComponent.css";
 import { Button } from 'antd';
 
