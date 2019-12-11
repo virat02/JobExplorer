@@ -22,7 +22,7 @@ export default class SearchBarComponent extends Component {
         super(props);
 
         this.state = {
-            jobType: "",
+            jobType: "Part Time",
             isSponsorshipAvailable: true,
             language: "",
             location: ""
@@ -30,7 +30,7 @@ export default class SearchBarComponent extends Component {
     }
 
     setJobType = event => {
-        return event.target.checked === true ?
+        return event.target.checked ?
             this.setState({
                 jobType: "Full Time"
             })
@@ -76,6 +76,7 @@ export default class SearchBarComponent extends Component {
                             this.props.isAuthenticated &&
                             <div>
                                 <Checkbox
+                                    checked={this.state.jobType === "Full Time"}
                                     onChange={this.setJobType}>
                                     Full Time
                                 </Checkbox>

@@ -49,6 +49,13 @@ export const authFail = error => {
     }
 }
 
+export const authRegFail = error => {
+    return {
+        type: constants.REGISTRATION_AUTH_FAIL,
+        RegistrationError: error
+    }
+}
+
 /**
  * LOGOUT METHOD
  */
@@ -78,7 +85,7 @@ export const register = (dispatch, username, email, password1, password2) => {
             history.push('/');
         })
         .catch(err => {
-            dispatch(authFail(err))
+            dispatch(authRegFail(err))
         })
 }
 

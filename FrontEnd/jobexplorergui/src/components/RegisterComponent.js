@@ -21,7 +21,6 @@ class RegistrationForm extends Component {
                     values.password,
                     values.confirm
                 );
-                this.props.history.push('/login');
             }
         });
     }
@@ -106,12 +105,12 @@ class RegistrationForm extends Component {
                 <FormItem>
                     <Button type="btn btn-success job-button" htmlType="submit" style={{ marginRight: '10px' }}>
                         SignUp
-                        </Button>
+                    </Button>
 
                     <NavLink to='/login'>
                         <Button type="btn btn-success job-button" style={{ marginRight: '10px' }}>
                             Login
-                            </Button>
+                        </Button>
                     </NavLink>
                 </FormItem>
             </Form>
@@ -120,9 +119,9 @@ class RegistrationForm extends Component {
 
     render() {
         let errorMessage = null;
-        if (this.props.error) {
+        if (this.props.RegistrationError) {
             errorMessage = (
-                <p>{this.props.error.message}</p>
+                <p>{this.props.RegistrationError.message}</p>
             );
         }
         const { getFieldDecorator } = this.props.form;

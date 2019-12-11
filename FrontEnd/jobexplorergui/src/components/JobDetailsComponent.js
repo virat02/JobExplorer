@@ -38,7 +38,7 @@ export default class JobDetailsComponent extends React.Component {
                             onClick={() => this.props.bookmarkJob(this.props.job.id,
                                 this.props.token)}>
                             Bookmark
-                            </Button>
+                        </Button>
                     }
                     {
                         this.props.isAuthenticated &&
@@ -47,7 +47,7 @@ export default class JobDetailsComponent extends React.Component {
                             onClick={() => this.props.likeJob(this.props.job.id,
                                 this.props.token)}>
                             Like
-                            </Button>
+                        </Button>
                     }
 
                     {
@@ -57,7 +57,7 @@ export default class JobDetailsComponent extends React.Component {
                             onClick={() => this.props.dislikeJob(this.props.job.id,
                                 this.props.token)}>
                             Dislike
-                            </Button>
+                        </Button>
                     }
                 </div>
 

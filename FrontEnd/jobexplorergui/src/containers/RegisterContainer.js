@@ -4,7 +4,7 @@ import RegisterComponent from "../components/RegisterComponent";
 
 const stateToPropertyMapper = state => ({
     loading: state.AuthReducer.loading,
-    error: state.AuthReducer.error
+    RegistrationError: state.AuthReducer.RegistrationError
 });
 
 export const dispatcherToPropsMapper = dispatch => ({
@@ -12,6 +12,7 @@ export const dispatcherToPropsMapper = dispatch => ({
         actions.register(dispatch, username, email, password, password2)
 });
 
-const RegisterContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(RegisterComponent);
+const RegisterContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)
+    (RegisterComponent);
 
 export default RegisterContainer;
