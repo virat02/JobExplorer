@@ -18,11 +18,8 @@ class Company(models.Model):
 
     id = models.AutoField(verbose_name='COMPANY_ID',
                           serialize=False, auto_created=True, primary_key=True)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=250)
     website = models.CharField(max_length=250, null=True)
-    location = models.CharField(max_length=200)
-    logo = models.ImageField(upload_to='../companyLogo/',
-                             default='../companyLogo/default.png')
 
     def __str__(self):
         return str(self.id)
@@ -33,13 +30,13 @@ class Job(models.Model):
     id = models.AutoField(verbose_name='JOB_ID',
                           auto_created=True, primary_key=True)
     job_uuid = models.UUIDField(default=uuid.uuid4(), editable=False)
-    type = models.CharField(max_length=200)
+    type = models.CharField(max_length=250)
     created_at = models.DateTimeField()
-    location = models.CharField(max_length=200)
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    how_to_apply = models.TextField()
-    language = models.CharField(max_length=200)
+    location = models.CharField(max_length=250, null=True, blank=True)
+    title = models.CharField(max_length=250)
+    description = models.TextField(null=True, blank=True)
+    how_to_apply = models.TextField(null=True, blank=True)
+    language = models.CharField(max_length=250)
     sponsorship_available = models.BooleanField(default=True)
     favourite_users = models.ManyToManyField(
         'CustomUser', null=True, blank=True, through='Favourites')

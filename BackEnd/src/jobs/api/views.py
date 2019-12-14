@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException
 
-from jobs.models import Job, CustomUser, Company, Likes
+from jobs.models import Job, CustomUser, Company, Likes, Dislikes, Favourites
 from .serializers import (JobSerializer, UserSerializer,
                           CompanySerializer, LikeSerializer,
                           DislikeSerializer, BookmarkSerializer)
@@ -60,7 +60,7 @@ class LikeViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminUser | IsAuthenticated,)
 
     """
-    Get request
+    Post request
     """
 
     def create(self, request):
@@ -73,41 +73,49 @@ class LikeViewSet(viewsets.ModelViewSet):
         if not user:
             raise APIException("User doesn't exist")
 
+        # Get the Job to like
+        likedJobToAdd = Job.objects.get(id=request.data["job"])
+
+        # Check if job to like exists
+        if not likedJobToAdd:
+            raise APIException("Job to like doesn't exist")
+
         # Check if user has already liked the job,
         # raise APIException iff true
         if user.liked_jobs.filter(id=request.data["job"]).exists():
             raise APIException("Job already liked!")
 
         # If all checks pass, execute the action
-        serializer.save(user=request.user)
+        user.liked_jobs.add(likedJobToAdd)
 
         return Response(status=status.HTTP_201_CREATED)
 
     """
-    Patch request
+    Delete request
     """
 
-    def partial_update(self, request, pk=None):
+    def destroy(self, request, pk=None):
+
         # Check if request parameter has a job id, else raise APIException
         if pk is None:
-            raise APIException("Need to provide a job id to update")
+            raise APIException("Need to provide a job id to unlike")
 
         # Check if user exists, else raise APIException
         user = CustomUser.objects.get(id=self.request.user.id)
         if not user:
             raise APIException("User doesn't exist")
 
-        # Check if job exists, else raise APIException
-        job = user.liked_jobs.filter(id=pk).first()
-        if not job:
+        # Get the liked job to un-like
+        likedJobToDelete = Likes.objects.filter(
+            user=request.user.id, job=pk).first()
+
+        # Check if job exists in the user's liked list
+        if not likedJobToDelete:
             raise APIException(
                 "Job to unlike doesn't exist is user's liked jobs list!")
 
-        # Update the favorite jobs list of the user
-        user.liked_jobs.remove(job)
-
-        # Save the updated user to the database
-        user.save()
+        # If all checks pass, execute the action
+        self.perform_destroy(likedJobToDelete)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -116,12 +124,12 @@ class DislikeViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for creating and editing disliked jobs.
     """
-    queryset = Likes.objects.all()
+    queryset = Dislikes.objects.all()
     serializer_class = DislikeSerializer
     permission_classes = (IsAdminUser | IsAuthenticated,)
 
     """
-    Get request
+    Post request
     """
 
     def create(self, request):
@@ -134,41 +142,49 @@ class DislikeViewSet(viewsets.ModelViewSet):
         if not user:
             raise APIException("User doesn't exist")
 
-        # Check if user has already bookmarked the job,
+        # Get the Job to like
+        dislikedJobToAdd = Job.objects.get(id=request.data["job"])
+
+        # Check if job to dislike exists
+        if not dislikedJobToAdd:
+            raise APIException("Job to dislike doesn't exist")
+
+        # Check if user has already liked the job,
         # raise APIException iff true
         if user.disliked_jobs.filter(id=request.data["job"]).exists():
             raise APIException("Job already disliked!")
 
         # If all checks pass, execute the action
-        serializer.save(user=request.user)
+        user.disliked_jobs.add(dislikedJobToAdd)
 
         return Response(status=status.HTTP_201_CREATED)
 
     """
-    Patch request
+    Delete request
     """
 
-    def partial_update(self, request, pk=None):
+    def destroy(self, request, pk=None):
+
         # Check if request parameter has a job id, else raise APIException
         if pk is None:
-            raise APIException("Need to provide a job id to update")
+            raise APIException("Need to provide a job id to un-dislike")
 
         # Check if user exists, else raise APIException
         user = CustomUser.objects.get(id=self.request.user.id)
         if not user:
             raise APIException("User doesn't exist")
 
-        # Check if job exists, else raise APIException
-        job = user.disliked_jobs.filter(id=pk).first()
-        if not job:
+        # Get the disliked job to un-dislike
+        dislikedJobToDelete = Dislikes.objects.filter(
+            user=request.user.id, job=pk).first()
+
+        # Check if job exists in the user's disliked list
+        if not dislikedJobToDelete:
             raise APIException(
-                "Job to un-dislike doesn't exist is user's disliked jobs list!")
+                "Job to un-dislike doesn't exist is user's liked jobs list!")
 
-        # Update the favorite jobs list of the user
-        user.disliked_jobs.remove(job)
-
-        # Save the updated user to the database
-        user.save()
+        # If all checks pass, execute the action
+        self.perform_destroy(dislikedJobToDelete)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -177,12 +193,12 @@ class BookmarkViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for creating and editing bookmarked jobs.
     """
-    queryset = Likes.objects.all()
+    queryset = Favourites.objects.all()
     serializer_class = BookmarkSerializer
     permission_classes = (IsAdminUser | IsAuthenticated,)
 
     """
-    Get request
+    Post request
     """
 
     def create(self, request):
@@ -195,41 +211,49 @@ class BookmarkViewSet(viewsets.ModelViewSet):
         if not user:
             raise APIException("User doesn't exist")
 
-        # Check if user has already bookmarked the job,
+        # Get the Job to bookmark
+        bookmarkedJobToAdd = Job.objects.get(id=request.data["job"])
+
+        # Check if job to bookmark exists
+        if not bookmarkedJobToAdd:
+            raise APIException("Job to dislike doesn't exist")
+
+        # Check if user has already liked the job,
         # raise APIException iff true
         if user.favourite_jobs.filter(id=request.data["job"]).exists():
             raise APIException("Job already bookmarked!")
 
         # If all checks pass, execute the action
-        serializer.save(user=request.user)
+        user.favourite_jobs.add(bookmarkedJobToAdd)
 
         return Response(status=status.HTTP_201_CREATED)
 
     """
-    Patch request
+    Delete request
     """
 
-    def partial_update(self, request, pk=None):
+    def destroy(self, request, pk=None):
+
         # Check if request parameter has a job id, else raise APIException
         if pk is None:
-            raise APIException("Need to provide a job id to update")
+            raise APIException("Need to provide a job id to un-bookmark")
 
         # Check if user exists, else raise APIException
         user = CustomUser.objects.get(id=self.request.user.id)
         if not user:
             raise APIException("User doesn't exist")
 
-        # Check if job exists, else raise APIException
-        job = user.favourite_jobs.filter(id=pk).first()
-        if not job:
+        # Get the bookmarked job to un-bookmark
+        bookmarkedJobToDelete = Favourites.objects.filter(
+            user=request.user.id, job=pk).first()
+
+        # Check if job exists in the user's bookmarked list
+        if not bookmarkedJobToDelete:
             raise APIException(
-                "Job to un-bookmark doesn't exist is user's bookmarked jobs list!")
+                "Job to un-bookmark doesn't exist is user's liked jobs list!")
 
-        # Update the favorite jobs list of the user
-        user.favourite_jobs.remove(job)
-
-        # Save the updated user to the database
-        user.save()
+        # If all checks pass, execute the action
+        self.perform_destroy(bookmarkedJobToDelete)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
