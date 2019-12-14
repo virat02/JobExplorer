@@ -5,7 +5,8 @@ import uuid
 
 class CustomUser(AbstractUser):
     favourite_jobs = models.ManyToManyField(
-        'Job', null=True, blank=True, through='Favourites')
+        'Job', null=True, blank=True,
+        related_name="user_favourite", through='Favourites')
     liked_jobs = models.ManyToManyField(
         'Job', null=True, blank=True,
         related_name="user_like", through='Likes')
@@ -39,7 +40,8 @@ class Job(models.Model):
     language = models.CharField(max_length=250)
     sponsorship_available = models.BooleanField(default=True)
     favourite_users = models.ManyToManyField(
-        'CustomUser', null=True, blank=True, through='Favourites')
+        'CustomUser', null=True, blank=True,
+        related_name="job_favourite", through='Favourites')
     liked_by_users = models.ManyToManyField(
         'CustomUser', null=True, blank=True,
         related_name="job_like", through='Likes')
@@ -57,8 +59,10 @@ class Job(models.Model):
 class Favourites(models.Model):
     id = models.AutoField(verbose_name='USER_FAVOURITE_JOB_ID',
                           auto_created=True, primary_key=True)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        CustomUser, related_name="user_favourite", on_delete=models.CASCADE)
+    job = models.ForeignKey(
+        Job, related_name="job_favourite", on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
