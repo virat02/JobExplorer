@@ -111,11 +111,14 @@ export default class SearchBarComponent extends Component {
                             <button className="btn btn-success wbdv-search-bar"
                                 type="button"
                                 onClick={() =>
-                                    this.props.searchJobs(this.props.searchText,
-                                        this.state.language,
-                                        this.state.jobType,
-                                        this.state.isSponsorshipAvailable,
-                                        this.props.locationText)}>
+                                    this.props.isAuthenticated ?
+                                        this.props.searchJobs(this.props.searchText,
+                                            this.state.language,
+                                            this.state.jobType,
+                                            this.state.isSponsorshipAvailable,
+                                            this.props.locationText)
+                                        :
+                                        this.props.searchJobs(this.props.searchText, "", "", "", "")}>
                                 <span className={"text-center"}>
                                     Search
                                 </span>

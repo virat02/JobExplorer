@@ -59,9 +59,7 @@ export default class JobService {
 
     //Remove liked job, needs Authenticaton
     removeLikedJob = (jobId, token) =>
-        axios.patch(baseURL + "/api/like/" + jobId + "/",
-            //data
-            null,
+        axios.delete(baseURL + "/api/like/" + jobId + "/",
             //headers
             {
                 headers: {
@@ -100,9 +98,7 @@ export default class JobService {
 
     //Remove disliked job, needs Authenticaton
     removeDislikedJob = (jobId, token) =>
-        axios.patch(baseURL + "/api/dislike/" + jobId + "/",
-            //data
-            null,
+        axios.delete(baseURL + "/api/dislike/" + jobId + "/",
             //headers
             {
                 headers: {
@@ -140,9 +136,7 @@ export default class JobService {
 
     //Remove bookmarked job, needs Authenticaton
     unbookmarkJob = (jobId, token) =>
-        axios.patch(baseURL + "/api/bookmark/" + jobId + "/",
-            //data
-            null,
+        axios.delete(baseURL + "/api/bookmark/" + jobId + "/",
             //headers
             {
                 headers: {
