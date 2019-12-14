@@ -11,8 +11,6 @@ class ThirdPartyJobView():
     def populateJobs(self):
         languages = ["java", "python", "sql",
                      "javascript", "scala", "react", "angular"]
-        job_id = 1
-        company_id = 1
         for language in languages:
 
             url = 'https://jobs.github.com/positions.json'
@@ -32,20 +30,17 @@ class ThirdPartyJobView():
                         company = Company.objects.get(name=result['company'])
                     except Company.DoesNotExist:
                         company = Company(
-                            id=company_id,
+                            # id=company_id,
                             name=result['company'],
-                            website=result['company_url'],
-                            location=result['location'],
-                            logo=result['company_logo'])
-
-                        company_id = company_id + 1
+                            website=result['company_url'])
 
                     job = None
                     try:
                         job = Job.objects.get(job_uuid=result['id'])
                     except Job.DoesNotExist:
                         job = Job(
-                            id=job_id, job_uuid=result['id'],
+                            # id=job_id,
+                            job_uuid=result['id'],
                             type=result['type'],
                             created_at=datetime.strptime(
                                 result['created_at'],
@@ -56,8 +51,6 @@ class ThirdPartyJobView():
                             how_to_apply=result['how_to_apply'],
                             language=language,
                             company=company)
-
-                        job_id = job_id + 1
 
                     company.save()
                     job.save()
