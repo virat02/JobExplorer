@@ -22,7 +22,7 @@ export default class SearchBarComponent extends Component {
         super(props);
 
         this.state = {
-            jobType: "Part Time",
+            jobType: "Full Time",
             isSponsorshipAvailable: true,
             language: "",
             location: ""
