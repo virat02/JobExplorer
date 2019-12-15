@@ -49,7 +49,7 @@ class Job(models.Model):
         'CustomUser', null=True, blank=True,
         related_name="job_dislike", through='Dislikes')
     company = models.ForeignKey(Company,
-                                on_delete=models.CASCADE, null=True,
+                                on_delete=models.CASCADE, default=1,
                                 related_name='companies')
 
     def __str__(self):
